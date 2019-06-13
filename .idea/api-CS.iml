@@ -12,5 +12,9 @@
     <orderEntry type="library" name="jquery-3.4.1.slim" level="application" />
     <orderEntry type="library" name="angular" level="application" />
     <orderEntry type="library" name="angular-route" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery-3.4.1.slim" level="application" />
+    <orderEntry type="library" name="angular" level="application" />
+    <orderEntry type="library" name="angular-route" level="application" />
   </component>
 </module>

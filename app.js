@@ -14,7 +14,7 @@ app.config(function ($routeProvider) {
           controller : "mainController"
        })
        .when('/register', {
-          templateUrl : 'pages/register.html',
+          templateUrl : 'pages/registration/register.html',
           controller : 'registerController',
           controllerAs : 'ctrl'
        })
@@ -28,7 +28,22 @@ app.config(function ($routeProvider) {
            controller : 'welcomeController',
            controllerAs : 'ctrl'
        })
-       .otherwise({redirectTo : '/'});
+       .when('singlePoi/:name', {
+           templateUrl : 'pages/singlepage.html',
+           controller : 'singlePoiController',
+           controllerAs : 'ctrl'
+       });
+       // .otherwise({redirectTo : '/'});
+});
+
+
+app.directive('tabber', function() {
+    return {
+        compile: function (element) {
+            var elems = (element.prop("tagName") === 'A') ? element : element.find('a');
+            elems.attr("target", "_blank");
+        }
+    };
 });
 
 
