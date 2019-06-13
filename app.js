@@ -10,16 +10,16 @@ app.run(function ($rootScope) {
 app.config(function ($routeProvider) {
    $routeProvider
        .when('/', {
-          template : "<h1> this is a test </h1>",
-          controller : "mainController"
+          templateUrl : 'pages/login/login.html',
+          controller : "loginController"
        })
        .when('/register', {
-          templateUrl : 'pages/registration/register.html',
+          templateUrl : 'pages/login/login.html',
           controller : 'registerController',
           controllerAs : 'ctrl'
        })
        .when('/login', {
-          templateUrl : 'pages/login.html',
+          templateUrl : 'pages/login/login.html',
           controller : 'loginController',
           controllerAs : 'ctrl'
        })
