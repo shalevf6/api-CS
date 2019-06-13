@@ -18,7 +18,13 @@ app
                 console.log(res.data)
             }, function (err) {
                 console.log(err);
-            })
+            });
 
+
+
+
+        $scope.expandPoi = function () {
+            $window.openWindow($window.location)
+        }
         }
     );
