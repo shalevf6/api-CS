@@ -10,8 +10,8 @@ app.run(function ($rootScope) {
 app.config(function ($routeProvider) {
    $routeProvider
        .when('/', {
-          templateUrl : 'pages/mainPage.html',
-          controller : "mainPageController",
+          templateUrl : 'pages/login/new-login.html',
+          controller : "loginController",
            controllerAS : "ctrl"
        })
        .when('/register', {
@@ -20,7 +20,7 @@ app.config(function ($routeProvider) {
           controllerAs : 'ctrl'
        })
        .when('/login', {
-          templateUrl : 'pages/login/login.html',
+          templateUrl : 'pages/login/new-login.html',
           controller : 'loginController',
           controllerAs : 'ctrl'
        })
@@ -38,8 +38,8 @@ app.config(function ($routeProvider) {
            templateUrl: 'pages/pois.html',
            controller: 'poisController',
            controllerA: 'ctrl'
-       });
-       // .otherwise({redirectTo : '/'});
+       })
+        .otherwise({redirectTo : '/'});
 });
 
 app.service("header", function () {
@@ -47,7 +47,19 @@ app.service("header", function () {
         "Content-Type" : "application/json",
         "Access-Control-Allow-Origin" : "*"
     }
-})
+});
+
+app.service('search', function () {
+    this.value = "";
+    this.setVal = function (value) {
+        this.value = value;
+    };
+    this.getVal = function () {
+        let val = this.value;
+        this.value = '';
+        return val;
+    }
+});
 
 app.directive('tabber', function() {
     return {
@@ -60,10 +72,11 @@ app.directive('tabber', function() {
 
 
 //  main controller
-app.controller('mainController', function ($scope, $http, $window, $rootScope) {
+app.controller('mainController', function ($scope, $http, $window, $rootScope, search) {
 
    $scope.logout = function(){
-      sessionStorage.removeItem('curUser');
+      sessionStorage.removeItem('username');
+      sessionStorage.removeItem('token');
       $rootScope.rUsername = "Guest";
       $rootScope.rToken = "";
 
@@ -73,18 +86,17 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope) {
   };
 
   $scope.search = function () {
-      if (!$scope.text){
-          alert('fuck off');
-          return;
-      }
+      search.setVal($scope.text);
 
-      $http.get("http://localhost:3000/poi/" + $scope.text, {headers: {"Content-Type" : "application/json",
-              "Access-Control-Allow-Origin" : "*"}})
-          .then(function (res) {
-              console.log(res)
-          }, function (err) {
-              console.log(err)
-          })
+      $window.location.href = '#!/POIS'
+
+      // $http.get("http://localhost:3000/poi/" + $scope.text, {headers: {"Content-Type" : "application/json",
+      //         "Access-Control-Allow-Origin" : "*"}})
+      //     .then(function (res) {
+      //         console.log(res)
+      //     }, function (err) {
+      //         console.log(err)
+      //     })
   };
    
 });
