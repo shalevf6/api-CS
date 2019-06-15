@@ -59,4 +59,15 @@ app.controller('registerController', function($scope, $http, $window){
                 console.log("error! info: " + err);
                 $scope.username = err
             })
+    $scope.master = {};
+
+    $scope.update = function(user) {
+        $scope.master = angular.copy(user);
+    };
+    $scope.reset = function() {
+        $scope.user = angular.copy($scope.master);
+    };
+
+    $scope.reset();
+
 });
