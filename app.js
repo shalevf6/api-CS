@@ -33,10 +33,21 @@ app.config(function ($routeProvider) {
            templateUrl : 'pages/singlepage.html',
            controller : 'singlePoiController',
            controllerAs : 'ctrl'
+       })
+       .when('/POIS', {
+           templateUrl: 'pages/pois.html',
+           controller: 'poisController',
+           controllerA: 'ctrl'
        });
        // .otherwise({redirectTo : '/'});
 });
 
+app.service("header", function () {
+    this.header = {
+        "Content-Type" : "application/json",
+        "Access-Control-Allow-Origin" : "*"
+    }
+})
 
 app.directive('tabber', function() {
     return {
@@ -49,7 +60,7 @@ app.directive('tabber', function() {
 
 
 //  main controller
-app.controller('mainController', function ($scope, $http, $window) {
+app.controller('mainController', function ($scope, $http, $window, $rootScope) {
 
    $scope.logout = function(){
       sessionStorage.removeItem('curUser');
@@ -58,7 +69,22 @@ app.controller('mainController', function ($scope, $http, $window) {
 
       console.log("inside logout");
 
-      $window.location.href = "#!/register"
-  }
+      $window.location.href = "#!/"
+  };
+
+  $scope.search = function () {
+      if (!$scope.text){
+          alert('fuck off');
+          return;
+      }
+
+      $http.get("http://localhost:3000/poi/" + $scope.text, {headers: {"Content-Type" : "application/json",
+              "Access-Control-Allow-Origin" : "*"}})
+          .then(function (res) {
+              console.log(res)
+          }, function (err) {
+              console.log(err)
+          })
+  };
    
 });
