@@ -7,6 +7,8 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/register.css">
 
     <!-- Website CSS style -->
@@ -90,16 +92,54 @@
                         </div>
                     </div>
                 </div>
-
-                <label for="multipleSelect"> Multiple select: </label><br>
-                <select name="multipleSelect" id="multipleSelect" ng-model="data.multipleSelect" multiple>
-                    <option value="option-1">Option 1</option>
-                    <option value="option-2">Option 2</option>
-                    <option value="option-3">Option 3</option>
-                </select><br>
-                <tt>multipleSelect = {{data.multipleSelect}}</tt><br/>
-
-
+                <div class="form-group">
+                    <label for="firstCat" class="cols-sm-2 control-label">SELECT FIRST CATEGORY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <select id ="firstCat" class="form-control" ng-model="firstCat" >
+                            <option value="" disabled selected>CHOOSE</option>
+                            <option ng-repeat="cat in categories">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="secondCat" class="cols-sm-2 control-label">SELECT SECOND CATEGORY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <select id ="secondCat" class="form-control" ng-model="secondCat" >
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option ng-repeat="cat in categories">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="country" class="cols-sm-2 control-label">SELECT COUNTRY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <select id ="country" class="form-control" ng-model="country" >
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option ng-repeat="cat in categories">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="qusetions" class="cols-sm-2 control-label">SELECT QUESTION</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class=" fa-flag on fa-circle" aria-hidden="true"></i></span>
+                            <select id ="qusetions" class="form-control" ng-model="selection" >
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option ng-repeat="cat in questions">{{cat}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group ">
                     <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
                 </div>

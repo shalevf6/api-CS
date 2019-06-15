@@ -13,8 +13,8 @@
 <input ng-model="searchVal" type="text" ng-change="updateResults()" >
 
 <div class="container-fluid">
-    <div class="row" ng-repeat="item in results">
-        <div class="col">
+    <div class="row" ng-repeat="arr in results">
+        <div class="col" ng-repeat="item in arr">
             <a tabber href="#!/singlePoi/{{item.name}}">
                 <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
                 <!--            <p ng-repeat="(x,y) in item">{{x+ " "  +y}}</p>-->
