@@ -7,6 +7,8 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/register.css">
 
     <!-- Website CSS style -->
@@ -22,8 +24,23 @@
     <title>Admin</title>
 </head>
 <body>
+<style type="text/css">
+    .css-form input.ng-invalid.ng-touched {
+        background-color: #FA787E;
+    }
+
+    .css-form input.ng-valid.ng-touched {
+        background-color: #78FA89;
+    }
+</style>
+
+<div style="text-align: center;">
+    <h1>
+        REGISTRATION
+    </h1>
+</div>
 <div class="container">
-    <div class="row main">
+    <div class="row">
         <div class="panel-heading">
             <div class="panel-title text-center">
                 <hr />
@@ -32,79 +49,172 @@
         <div class="main-login main-center">
             <form class="form-horizontal" method="post" action="#">
 
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Your Name</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="username" class="cols-sm-2 control-label">Username</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="cols-sm-2 control-label">Password</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="city" class="cols-sm-2 control-label">city</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="city" id="city"  placeholder="Confirm your Password"/>
-                        </div>
-                    </div>
-                </div>
-                <label for="multipleSelect"> Multiple select: </label><br>
-                <select name="multipleSelect" id="multipleSelect" ng-model="data.multipleSelect" multiple>
-                    <option value="option-1">Option 1</option>
-                    <option value="option-2">Option 2</option>
-                    <option value="option-3">Option 3</option>
-                </select><br>
-                <tt>multipleSelect = {{data.multipleSelect}}</tt><br/>
-
-
-                <div class="form-group ">
-                    <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-                </div>
             </form>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="username" class="cols-sm-2 control-label">Username</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="password" class="cols-sm-2 control-label">Password</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="city" class="cols-sm-2 control-label">city</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+                        <input type="password" class="form-control" name="city" id="city"  placeholder="BeerSheva"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="firstCat" class="cols-sm-2 control-label">SELECT FIRST CATEGORY</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
+                        <select id ="firstCat" class="form-control" ng-model="firstCat" >
+                            <option value="" disabled selected>CHOOSE</option>
+                            <option ng-repeat="cat in categories">{{cat.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="secondCat" class="cols-sm-2 control-label">SELECT SECOND CATEGORY</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
+                        <select id ="secondCat" class="form-control" ng-model="secondCat" >
+                            <option value="" disabled selected>CHOOSE</option>
+                            <option ng-repeat="cat in categories">{{cat.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="qusetions" class="cols-sm-2 control-label">SELECT QUESTION</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-question-circle-o" style="font-size:20px;color:gray"></i></span>
+                        <select id ="qusetions" class="form-control" ng-model="selection" >
+                            <option value="" disabled selected>CHOOSE</option>
+                            <option ng-repeat="cat in questions">{{cat}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="answer" class="cols-sm-2 control-label">SECURITY QUESTION ANSWER </label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-unlock-alt" style="font-size:20px"></i></span>
+                        <input type="text" class="form-control" name="answer" id="answer"  placeholder="Answer"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="country" class="cols-sm-2 control-label">SELECT COUNTRY</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-flag-checkered" style="font-size:18px"></i></span>
+                        <select id ="country" class="form-control" ng-model="country" >
+                            <option value="" disabled selected>CHOOSE</option>
+                            <option ng-repeat="cat in categories">{{cat.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group ">
+                <button type="button" class="btn btn-primary">Register</button><br><br>
+                <input type="button" class="btn btn-warning" ng-click="reset()" value="Reset" />
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript" src="assets/js/bootstrap.js"></script>

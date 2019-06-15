@@ -20,7 +20,7 @@ app.controller('loginController', function($scope, $http, $window, $rootScope){
         .then(function success(response){
             console.log('logged in!');
             console.log('token: ' + response);
-            
+
 
             sessionStorage.setItem(
                 "curUser", JSON.stringify({
