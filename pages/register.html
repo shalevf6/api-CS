@@ -87,7 +87,7 @@
                     <label for="city" class="cols-sm-2 control-label">city</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
                             <input type="password" class="form-control" name="city" id="city"  placeholder="BeerSheva"/>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     <label for="firstCat" class="cols-sm-2 control-label">SELECT FIRST CATEGORY</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
                             <select id ="firstCat" class="form-control" ng-model="firstCat" >
                             <option value="" disabled selected>CHOOSE</option>
                             <option ng-repeat="cat in categories">{{cat.name}}</option>
@@ -108,7 +108,7 @@
                     <label for="secondCat" class="cols-sm-2 control-label">SELECT SECOND CATEGORY</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
                             <select id ="secondCat" class="form-control" ng-model="secondCat" >
                                 <option value="" disabled selected>CHOOSE</option>
                                 <option ng-repeat="cat in categories">{{cat.name}}</option>
@@ -120,7 +120,7 @@
                     <label for="country" class="cols-sm-2 control-label">SELECT COUNTRY</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-flag-checkered" style="font-size:18px"></i></span>
                             <select id ="country" class="form-control" ng-model="country" >
                                 <option value="" disabled selected>CHOOSE</option>
                                 <option ng-repeat="cat in categories">{{cat.name}}</option>
@@ -132,7 +132,7 @@
                     <label for="qusetions" class="cols-sm-2 control-label">SELECT QUESTION</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class=" fa-flag on fa-circle" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-question-circle-o" style="font-size:20px;color:gray"></i></span>
                             <select id ="qusetions" class="form-control" ng-model="selection" >
                                 <option value="" disabled selected>CHOOSE</option>
                                 <option ng-repeat="cat in questions">{{cat}}</option>
