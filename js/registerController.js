@@ -9,11 +9,27 @@ app.controller('registerController', function($scope, $http, $window){
             "Access-Control-Allow-Origin" : "*"
         }
     };
-    // ctrl.password = request.headers
-    $http(request)
+       $http(request)
         .then(function success(response){
                 let ans = response.data;
                 $scope.questions = ans;
+            },
+            function error(err){
+                console.log("error! info: " + err);
+                $scope.username = err
+            })
+    let request1 = {
+        method: 'GET',
+        url : 'http://localhost:3000/poiCategory/:category',
+        headers: {
+            "Content-Type" : "application/json",
+            "Access-Control-Allow-Origin" : "*"
+        }
+    };
+    $http(request1)
+        .then(function success(response){
+                let ans = response.data;
+                $scope.categories = ans;
             },
             function error(err){
                 console.log("error! info: " + err);
