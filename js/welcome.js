@@ -25,6 +25,12 @@ app
 
         $scope.expandPoi = function () {
             $window.openWindow($window.location)
-        }
+        };
         }
     );
+
+
+$("#favorite_star").click(function(){
+    $("#favorite_star").addClass("dark_orange");
+//     $(".fa-star").animate({color:'darkorange'},1000);
+});
