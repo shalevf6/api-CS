@@ -33,6 +33,11 @@ app.config(function ($routeProvider) {
            templateUrl : 'pages/singlepage.html',
            controller : 'singlePoiController',
            controllerAs : 'ctrl'
+       })
+       .when('/favoritePoi', {
+           templateUrl : 'pages/favoritePoi.html',
+           controller : 'favoritePoiController',
+           controllerAs : 'ctrl'
        });
        // .otherwise({redirectTo : '/'});
 });
@@ -63,8 +68,30 @@ app.controller('mainController', function ($scope, $http, $window) {
    
 });
 
+app.service('favoritePoiService', function ($scope, $http, $window) {
+    $scope.favorites = [];
 
-$("#favorite_star").click(function(){
-    $("#favorite_star").addClass("dark_orange");
-//     $(".fa-star").animate({color:'darkorange'},1000);
+    $scope.addFavorite = function(poi) {
+        favorites.push(poi);
+    };
+
+    $scope.removeFavorite = function(poi) {
+        angular.forEach(favorites, function(favorite, index) {
+            if(favorite.name === poi.name) {
+                favorites.splice(index, 1);
+            }
+        });
+    };
+
+    $http({
+        method : 'GET',
+        url : "http://localhost:3000/private/favoritePoi",
+        headers : headers
+    })
+        .then(function (res) {
+            $scope.recomended = res.data;
+            console.log(res.data)
+        }, function (err) {
+            console.log(err);
+        });
 });
