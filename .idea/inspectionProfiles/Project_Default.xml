@@ -5,9 +5,9 @@
       <option name="myValues">
         <value>
           <list size="3">
-            <item index="0" class="java.lang.String" itemvalue="position" />
-            <item index="1" class="java.lang.String" itemvalue="bottom" />
-            <item index="2" class="java.lang.String" itemvalue="margin-top" />
+            <item index="0" class="java.lang.String" itemvalue="(change)" />
+            <item index="1" class="java.lang.String" itemvalue="[value]" />
+            <item index="2" class="java.lang.String" itemvalue="placeholder" />
           </list>
         </value>
       </option>

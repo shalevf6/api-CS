@@ -20,6 +20,25 @@ app.controller('registerController', function($scope, $http, $window){
                 $scope.username = err
             })
 
+    let request3 = {
+        method: 'GET',
+        url : 'http://localhost:3000/countries',
+        headers: {
+            "Content-Type" : "application/json",
+            "Access-Control-Allow-Origin" : "*"
+        }
+    };
+
+    $http(request3)
+        .then(function success(response){
+                let countries = response.data;
+                $scope.countries = countries;
+            },
+            function error(err){
+                console.log("error! info: " + err);
+                $scope.username = err
+            })
+
 
     let request1 = {
         method: 'GET',
@@ -69,5 +88,20 @@ app.controller('registerController', function($scope, $http, $window){
     };
 
     $scope.reset();
-
+    $scope.update = function(user) {
+        $scope.master = angular.copy(user);
+        var count =0;
+        console.log(count);
+        for(category in user.categories[1]) {
+            console.log(category);
+            if(category[1]!=null)
+                count++;
+        }
+        console.log(count);
+        if(master.categories.length<2){
+            alert("YOU MUST CHOOSE 2 OR MORE CATEGORIES")
+            reset();
+        }
+        console.log(user.categories)
+    };
 });
