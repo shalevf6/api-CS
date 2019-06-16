@@ -30,7 +30,7 @@ app.controller('loginController', function($scope, $http, $window, $rootScope){
         },
         function error(err){
             console.log("error! info: " + err);
-            $scope.username = err
+            alert(JSON.stringify(err))
         })
     }
 

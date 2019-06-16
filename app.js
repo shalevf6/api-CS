@@ -90,6 +90,7 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
 
       $window.location.href = '#!/POIS'
 
+
       // $http.get("http://localhost:3000/poi/" + $scope.text, {headers: {"Content-Type" : "application/json",
       //         "Access-Control-Allow-Origin" : "*"}})
       //     .then(function (res) {
