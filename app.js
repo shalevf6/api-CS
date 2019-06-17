@@ -2,8 +2,8 @@ var app = angular.module('myApp', ['ngRoute']);
 
 // setting root variables
 app.run(function ($rootScope) {
-   $rootScope.rUsername = "Guest";
-   $rootScope.rToken = "";
+   $rootScope.rUsername = sessionStorage.getItem('username');
+   $rootScope.rToken = sessionStorage.getItem('token');;
 });
 
 //  routing configurations
@@ -29,8 +29,8 @@ app.config(function ($routeProvider) {
            controller : 'welcomeController',
            controllerAs : 'ctrl'
        })
-       .when('singlePoi/:name', {
-           templateUrl : 'pages/singlepage.html',
+       .when('/singlePoi/:name', {
+           templateUrl : 'pages/singlePoi.html',
            controller : 'singlePoiController',
            controllerAs : 'ctrl'
        })
@@ -61,14 +61,6 @@ app.service('search', function () {
     }
 });
 
-app.directive('tabber', function() {
-    return {
-        compile: function (element) {
-            var elems = (element.prop("tagName") === 'A') ? element : element.find('a');
-            elems.attr("target", "_blank");
-        }
-    };
-});
 
 
 //  main controller
@@ -87,17 +79,7 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
 
   $scope.search = function () {
       search.setVal($scope.text);
-
       $window.location.href = '#!/POIS'
-
-
-      // $http.get("http://localhost:3000/poi/" + $scope.text, {headers: {"Content-Type" : "application/json",
-      //         "Access-Control-Allow-Origin" : "*"}})
-      //     .then(function (res) {
-      //         console.log(res)
-      //     }, function (err) {
-      //         console.log(err)
-      //     })
   };
    
 });

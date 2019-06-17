@@ -1,10 +1,17 @@
 app
     .controller('poisController', function ($scope, $http, $window, $rootScope, header, search) {
+        // if (!$rootScope.rToken) // if a user refresh the page.. should change
+        //     $window.location.href = "#!/";
+
         $scope.results = {};
         $scope.size = -1;
         let ser = search.getVal();
-        if (ser)
+        if (ser){
             $scope.searchVal = ser;
+        }
+        else {
+            $scope.searchVal = "";
+        }
 
         $http({
             method: "GET",
@@ -44,7 +51,6 @@ app
             var tmp = {};
             var cur = '1';
 
-
             $scope.allPoi.forEach(item => {
                 let a = item.name, b = $scope.selection.toLowerCase(); //$('#selection option:selected').text().toString().toLowerCase()
                 let c = $scope.searchVal;
@@ -67,9 +73,6 @@ app
             console.log($scope.results)
         };
 
-        $scope.changeInitor = function () {
-            $scope.initor = false;
-        };
 
         $scope.updateResultsFromSearch = function () {
             var tmp = {};
@@ -96,5 +99,10 @@ app
             $scope.results = tmp;
             $scope.size = Object.keys(tmp).length;
             console.log($scope.results)
+        };
+
+        $scope.poiClicked = function (event) {
+            let name = event.currentTarget.id;
+            $window.location.href = "#!/singlePoi/" + name;
         }
     });
