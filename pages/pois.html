@@ -5,16 +5,16 @@
 </head>
 <body>
 
-<select id="selection" ng-model="selection" ng-change="updateResults()">
-    <option>Show All</option>
+<select id="selection" ng-model="selection" ng-click="changeInitor()" ng-change="updateResults()" >
+<!--    <option ng-selected="initor">Show All</option>-->
     <option ng-repeat="cat in categories">{{cat.name}}</option>
 </select>
 
 <input ng-model="searchVal" type="text" ng-change="updateResults()" >
 
 <div class="container-fluid">
-    <div class="row" ng-repeat="arr in results">
-        <div class="col" ng-repeat="item in arr">
+    <div class="row" ng-repeat="(key, value) in results">
+        <div class="col" ng-repeat="item in value">
             <a tabber href="#!/singlePoi/{{item.name}}">
                 <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
                 <!--            <p ng-repeat="(x,y) in item">{{x+ " "  +y}}</p>-->
@@ -26,6 +26,9 @@
 
         </div>
     </div>
+
+    <h2 ng-show="size === 0">We couldn't find any points that meet your search</h2>
+    <h2 ng-show="size === -1">tkae a look</h2>
 
 </div>
 

@@ -1,0 +1,70 @@
+<!--<!DOCTYPE html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+
+<!--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--    <div class="wrapper fadeInDown">-->
+<!--        <div id="formContent">-->
+<!--            &lt;!&ndash; Tabs Titles &ndash;&gt;-->
+
+<!--            &lt;!&ndash; Icon &ndash;&gt;-->
+<!--            <div class="fadeIn first">-->
+<!--                <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Login Form &ndash;&gt;-->
+<!--            <form>-->
+<!--                <input type="text" id="login" class="fadeIn second" ng-model="username" name="login" placeholder="login">-->
+<!--                <input type="text" id="password" class="fadeIn third" ng-model="password" name="login" placeholder="password">-->
+<!--                <input type="submit" class="fadeIn fourth" ng-click="login()" value="Log In">-->
+<!--            </form>-->
+
+<!--            &lt;!&ndash; Remind Passowrd &ndash;&gt;-->
+<!--            <div id="formFooter">-->
+<!--                <a class="underlineHover" href="#">Forgot Password?</a>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="pages/login/css/login.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/root.css">
+</head>
+<body>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="active"> Sign In </h2>
+        <h2 class="inactive underlineHover">Sign Up </h2>
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="pages/login/images/icons/favicon.ico" class="nav-img" alt="User Icon" />
+        </div>
+
+        <!-- Login Form -->
+        <form>
+            <input type="text" id="login" ng-model="username" class="fadeIn second" name="login" placeholder="login">
+            <input type="password" id="password" ng-model="password" class="fadeIn third" name="login" placeholder="password">
+            <input type="submit" ng-click="login()" class="fadeIn fourth" value="Log In">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
