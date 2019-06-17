@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute', 'as.sortable']);
 
 // setting root variables
 app.run(function ($rootScope) {
@@ -38,6 +38,12 @@ app.config(function ($routeProvider) {
            templateUrl: 'pages/pois.html',
            controller: 'poisController',
            controllerA: 'ctrl'
+       })
+
+       .when('/userFavoritePOIs', {
+           templateUrl: 'pages/favoritePois.html',
+           controller: 'favoritePoisController',
+           controllerAs: 'ctrl'
        });
        // .otherwise({redirectTo : '/'});
 });
@@ -47,7 +53,7 @@ app.service("header", function () {
         "Content-Type" : "application/json",
         "Access-Control-Allow-Origin" : "*"
     }
-})
+});
 
 app.directive('tabber', function() {
     return {
@@ -87,4 +93,35 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope) {
           })
   };
    
+});
+
+app.service('favoritePoiService', function () {
+
+    this.favorites = [];
+
+    this.addFavorite = function (poi) {
+        this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
+            rank: poi.rank, watched: poi.watched});
+    };
+
+    this.removeFavorite = function (poi) {
+        angular.forEach(this.favorites, function (favorite, index, obj) {
+            if (favorite.name === poi.name) {
+                obj.splice(index, 1);
+            }
+        });
+    };
+
+    this.isFavorite = function (poi) {
+        angular.forEach(favorites, function(favorite, index) {
+            if (favorite.name === poi.name) {
+                return 'color: darkorange';
+            }
+        });
+        return 'color: black';
+    };
+
+    this.containsFavorites = function() {
+        return favorites.names.length > 0;
+    };
 });
