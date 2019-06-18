@@ -43,7 +43,7 @@ app.config(function ($routeProvider) {
            templateUrl: 'pages/favoritePois.html',
            controller: 'favoritePoisController',
            controllerAs: 'ctrl'
-       });
+       })
         .otherwise({redirectTo : '/'});
 });
 
