@@ -86,5 +86,5 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope) {
               console.log(err)
           })
   };
-   
+
 });

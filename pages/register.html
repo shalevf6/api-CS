@@ -25,189 +25,287 @@
     <title>Admin</title>
 </head>
 <body>
-<pre>user = {{user | json}}</pre>
-<pre>master = {{master | json}}</pre>
-<style type="text/css">
-    .registrationForm input.ng-invalid.ng-touched {
-        background-color: #FA787E;
-    }
 
-    .registrationForm input.ng-valid.ng-touched {
-        background-color: #78FA89;
-    }
-</style>
-<div style="text-align: center;">
-    <h1>
-        REGISTRATION
-    </h1>
+<div style="text-align: center;  ">
+    <h1 style="font-size:60px;">REGISTRATION </h1>
 </div>
-<form novalidate  class="registrationForm">
-<div class="container">
-    <div class="row">
-        <div class="panel-heading">
-            <div class="panel-title text-center">
-                <hr />
+
+<form   name="registrationForm" ng-submit="submitForm(registrationForm.$valid)" novalidate>
+    <div class="container">
+        <div class="row">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <hr />
+                </div>
+            </div>
+            <div class="main-login main-center">
             </div>
         </div>
-        <div class="main-login main-center">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label" >Your Name</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="name" id="name" ng-model="user.name" required  placeholder="Enter your Name"/>
+        <div class="row">
+            <div class="col">
+
+                <!/----------USER NAME-------------/>
+
+                <div class="form-group" div class="form-group" ng-class="{ 'has-error' : registrationForm.username.$invalid && !registrationForm.username.$pristine  }">
+                    <label for="username" class="cols-sm-2 control-label" >Your User Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group"  >
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="username" id="username" ng-model="user.username" ng-minlength="3" ng-maxlength="8"  placeholder="Enter your User Name" required >
+                        </div>
+                        <p ng-show="registrationForm.username.$invalid && !registrationForm.username.$pristine" class="help-block">Your user name is required.</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                        <input type="email" class="form-control" name="email" id="email"  ng-model="user.email" required placeholder="Enter your Email"/>
+            <div class="col">
+                <!/---------- NAME-------------/>
+
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.fname.$invalid && !registrationForm.fname.$pristine }">
+                    <label for="name" class="cols-sm-2 control-label" >Your Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="fname" id="name" ng-model="user.fname"   placeholder="Enter your Name" required>
+                        </div>
+                        <p ng-show="registrationForm.fname.$invalid && !registrationForm.fname.$pristine" class="help-block">Your name is required.</p>
                     </div>
                 </div>
             </div>
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="username" class="cols-sm-2 control-label">Last Name</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="username" ng-model="user.lastName" required id="username"  placeholder="Enter your Username"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="password" class="cols-sm-2 control-label">Password</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="password" ng-model="user.password1" id="password"  placeholder="Enter your Password"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="country" class="cols-sm-2 control-label">SELECT COUNTRY</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-flag-checkered" style="font-size:18px"></i></span>
-                        <select id ="country" class="form-control" ng-model="user.country" required>
-                            <option value="" disabled selected>CHOOSE</option>
-                            <option ng-repeat="cat in categories">{{cat.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="city" class="cols-sm-2 control-label">city</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
-                        <input type="text" class="form-control" name="city" id="city" ng-model="user.city" required placeholder="BeerSheva"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="firstCat" class="cols-sm-2 control-label">SELECT FIRST CATEGORY</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
-                        <select id ="firstCat" class="form-control" ng-model="user.firstCat" required >
-                            <option value="" disabled selected  >CHOOSE</option>
-                            <option ng-repeat="cat in categories">{{cat.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="secondCat" class="cols-sm-2 control-label">SELECT SECOND CATEGORY</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
-                        <select id ="secondCat" class="form-control" ng-model="user.secondCat" required >
-                            <option value="" disabled selected>CHOOSE</option>
-                            <option ng-repeat="cat in categories">{{cat.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="qusetions" class="cols-sm-2 control-label">SELECT QUESTION</label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-question-circle-o" style="font-size:20px;color:gray"></i></span>
-                        <select id ="qusetions" class="form-control" ng-model="user.question" required >
-                            <option value="" disabled selected>CHOOSE</option>
-                            <option ng-repeat="cat in questions">{{cat}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="answer" class="cols-sm-2 control-label">SECURITY QUESTION ANSWER </label>
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-unlock-alt" style="font-size:20px"></i></span>
-                        <input type="text" class="form-control" name="answer" ng-model="user.answer" required id="answer"  placeholder="Answer"/>
-                    </div>
-                </div>
-            </div>
+            <div class="col">
+                <!/----------EMAIL-------------/>
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.email.$invalid && !registrationForm.email.$pristine }">
+                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="email" class="form-control" name="email" id="email"  ng-model="user.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"  placeholder="Enter your Email" required>
+                        </div>
+                        <p ng-show="registrationForm.email.$invalid && !registrationForm.email.$pristine" class="help-block">Your email is required.</p>
+                    </div>
+                </div>
 
+            </div>
         </div>
-        <div class="col">
+        <div class="row">
+            <div class="col">
+                <!/----------LAST NAME-------------/>
 
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.lname.$invalid && !registrationForm.lname.$pristine }">
+                    <label for="lastname" class="cols-sm-2 control-label">Last Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="lname" ng-model="user.lname"  id="lastname"  placeholder="Enter your Last name" required>
+                        </div>
+                        <p ng-show="registrationForm.lname.$invalid && !registrationForm.lname.$pristine" class="help-block">You last name is required.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!/----------PASSWORD-------------/>
 
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.password.$invalid && !registrationForm.password.$pristine }">
+                    <label for="password" class="cols-sm-2 control-label">Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="password" ng-model="user.password" id="password"  ng-minlength="5" ng-maxlength="10" placeholder="Enter your Password" required>
+                        </div>
+                        <p ng-show="registrationForm.password.$invalid && !registrationForm.password.$pristine" class="help-block">Your password  is required.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div style="text-align: center;">
-            <div class="form-group ">
-                <div style="text-align: center;">
-                <button type="button" class="btn btn-primary" ng-click="ctrl.update(user)">Register</button><br><br>
+        <div class="row">
+            <div class="col">
+
+                <!/----------COUNTRY-------------/>
+
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.country.$invalid && !registrationForm.country.$pristine }">
+                    <label for="country" class="cols-sm-2 control-label">SELECT COUNTRY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-flag-checkered" style="font-size:18px"></i></span>
+                            <select id ="country" name="country" class="form-control" ng-model="user.country" required>
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option ng-repeat="cat in countries.countries">{{cat}}</option>
+                                <p ng-show="registrationForm.country.$invalid && !registrationForm.country.$pristine" class="help-block">country is required.</p>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+                <!/----------CITY-------------/>
+
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.city.$invalid && !registrationForm.city.$pristine }">
+                    <label for="city" class="cols-sm-2 control-label">city</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+                            <input type="text" class="form-control" name="city" id="city" ng-model="user.city"  placeholder="BeerSheva" required >
+                        </div>
+                        <p ng-show="registrationForm.city.$invalid && !registrationForm.city.$pristine" class="help-block">city is required.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <!/----------FIRST CATEGORY-------------/>
+
+                <div class="form-group">
+                    <label for="firstCat" class="cols-sm-2 control-label">SELECT FIRST CATEGORY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
+                            <select id ="firstCat" class="form-control" ng-model="user.favoriteCat[0]"  >
+                                <option value="" disabled selected  >CHOOSE</option>
+                                <option ng-repeat="cat in categories">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+                <!/----------SECOND CATEGORY-------------/>
+
+                <div class="form-group">
+                    <label for="secondCat" class="cols-sm-2 control-label">SELECT SECOND CATEGORY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
+                            <select id ="secondCat" class="form-control" ng-model="user.favoriteCat[1]"  >
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option ng-repeat="cat in categories">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <!/----------THIRD CATEGORY-------------/>
+
+                <div class="form-group">
+                    <label for="thirdCat" class="cols-sm-2 control-label">SELECT THIRD CATEGORY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
+                            <select id ="thirdCat" class="form-control" ng-model="user.favoriteCat[2]"  >
+                                <option value="" disabled selected  >CHOOSE</option>
+                                <option ng-repeat="cat in categories">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+                <!/----------FORTH CATEGORY-------------/>
+
+                <div class="form-group">
+                    <label for="forthCat" class="cols-sm-2 control-label">SELECT FORTH CATEGORY</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-bookmark-o" style="font-size:20px"></i></span>
+                            <select id ="forthCat" class="form-control" ng-model="user.favoriteCat[3]"  >
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option ng-repeat="cat in categories">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <!/----------QUESTION-------------/>
+
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.quest.$invalid && !registrationForm.quest.$pristine }">
+                    <label for="qusetions" class="cols-sm-2 control-label">SELECT QUESTION</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-question-circle-o" style="font-size:20px;color:gray"></i></span>
+                            <select id  ="qusetions" name = "quest" class="form-control" ng-model="user.questions.quest" required >
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option  ng-repeat="cat in questions">{{cat}}</option>
+                                <p ng-show="registrationForm.quest.$invalid && !registrationForm.quest.$pristine" class="help-block">question is required.</p>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+                <!/----------ANSWER-------------/>
+
+                <div class="form-group"  ng-class="{ 'has-error' : registrationForm.ans.$invalid && !registrationForm.ans.$pristine }">
+                    <label for="answer" class="cols-sm-2 control-label">SECURITY QUESTION ANSWER </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-unlock-alt" style="font-size:20px"></i></span>
+                            <input type="text" class="form-control" name="ans" ng-model="user.questions.ans"  id="answer"  placeholder="Answer" required>
+                        </div>
+                        <p ng-show="registrationForm.ans.$invalid && !registrationForm.ans.$pristine" class="help-block">answer is required.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <!/----------QUESTION-------------/>
+
+                <div class="form-group" ng-class="{ 'has-error' : registrationForm.quest1.$invalid && !registrationForm.quest1.$pristine }">
+                    <label for="qusetions1" class="cols-sm-2 control-label">SELECT QUESTION</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-question-circle-o" style="font-size:20px;color:gray"></i></span>
+                            <select id  ="qusetions1" name = "quest1" class="form-control" ng-model="user.questions.quest1" required >
+                                <option value="" disabled selected>CHOOSE</option>
+                                <option  ng-repeat="cat in questions">{{cat}}</option>
+                                <p ng-show="registrationForm.quest1.$invalid && !registrationForm.quest1.$pristine" class="help-block">question is required.</p>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+                <!/----------ANSWER-------------/>
+
+                <div class="form-group"  ng-class="{ 'has-error' : registrationForm.ans1.$invalid && !registrationForm.ans1.$pristine }">
+                    <label for="answer1" class="cols-sm-2 control-label">SECURITY QUESTION ANSWER </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-unlock-alt" style="font-size:20px"></i></span>
+                            <input type="text" class="form-control" name="ans1" ng-model="user.questions.ans1"  id="answer1"  placeholder="Answer" required>
+                        </div>
+                        <p ng-show="registrationForm.ans1.$invalid && !registrationForm.ans1.$pristine" class="help-block">answer is required.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary" ng-disabled="registrationForm.$invalid"  ng-click=" update(user)">Register</button><br><br>
                 <input type="button" class="btn btn-warning" ng-click="reset()" value="Reset" />
-                </div>
             </div>
-        </center>
+            </center>
+        </div>
     </div>
-
-
-</div>
 </form>
+
 <script type="text/javascript" src="assets/js/bootstrap.js"></script>
 </body>
+
 </html>
