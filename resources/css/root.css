@@ -13,6 +13,15 @@ img {
     width: 100px;
 }
 
+#colSearch{
+    z-index: 1;
+    max-width: 25%;
+}
+
+#colSearch:hover{
+    z-index: 100;
+}
+
 .search-img:hover{
     cursor: pointer;
     transform: scale(1.1);
