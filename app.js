@@ -100,6 +100,8 @@ app.service('favoritePoiService', function () {
     this.favorites = [];
 
     this.addFavorite = function (poi) {
+        // // TODO : MAKE SURE THE time VALUE IS CORRECT
+        // this.favorites.push({username: rUsername, poi: poi.name, personalOrder: poi.personalOrder, time: new Date().toISOString()});
         this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
             rank: poi.rank, watched: poi.watched});
     };
@@ -121,7 +123,25 @@ app.service('favoritePoiService', function () {
         return 'color: black';
     };
 
-    this.containsFavorites = function() {
-        return favorites.names.length > 0;
+    this.getTime = function (poi) {
+        angular.forEach(favorites, function(favorite, index) {
+            if (favorite.name === poi.name) {
+                return 'color: darkorange';
+            }
+        });
+        return 'color: black';
+    };
+
+    this.changeFavorite = function ($event, item){
+        let color = $event.currentTarget.style.color;
+        let id = $event.currentTarget.id;
+        if (color === 'darkorange') {
+            $("#" + id).css('color', 'black');
+            this.removeFavorite(item);
+        }
+        else {
+            $("#" + id).css('color', 'darkorange');
+            this.addFavorite(item);
+        }
     };
 });

@@ -39,21 +39,12 @@ app
                     }
                 });
 
-            $scope.changeFavorite = function ($event, item){
-                let color = $event.currentTarget.style.color;
-                let id = $event.currentTarget.id;
-                if (color === 'darkorange') {
-                    $("#" + id).css('color', 'black');
-                    favoritePoiService.removeFavorite(item);
-                }
-                else {
-                    $("#" + id).css('color', 'darkorange');
-                    favoritePoiService.addFavorite(item);
-                }
-            };
-
             $scope.expandPoi = function () {
                 $window.openWindow($window.location)
-            }
+            };
+
+            $scope.changeFavoriteFromController = function($event, item) {
+                favoritePoiService.changeFavorite($event,item);
+            };
         }
     );

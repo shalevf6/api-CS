@@ -5,15 +5,14 @@
         <div class="col text-center" ng-repeat="item in recommended">
             <a tabber href="#!/singlePoi/{{item.name}}">
             <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-<!--            <p ng-repeat="(x,y) in item">{{x+ " "  +y}}</p>-->
             <p><span ng-click="expandPoi()">Name: {{item.name}}</span></p>
             </a>
             <p><span>Category: {{item.category}}</span></p>
             <p><span>Rank: {{item.rank}}</span></p>
             <p><span>Watched: {{item.watched}}</span></p>
             <p>
-                <button class="star-recommended-{{$index}}">
-                    <i id="fav_star_recommended-{{$index}}" class="fa fa-star" ng-style="isFavorite(item)" ng-click="changeFavorite($event, item)"></i>
+                <button class="star-recommended-{{$index}}" ng-click="changeFavoriteFromController($event, item)">
+                    <i id="fav_star_recommended-{{$index}}" class="fa fa-star" ng-style="isFavorite(item)"></i>
                 </button>
             </p>
         </div>
@@ -34,8 +33,8 @@
             <p><span>Rank: {{item.rank}}</span></p>
             <p><span>Watched: {{item.watched}}</span></p>
             <p>
-                <button class="star-favorite-{{$index}}">
-                    <i id="fav_star_favorite-{{$index}}" class="fa fa-star" ng-style="isFavorite(item)" ng-click="changeFavorite($event)"></i>
+                <button class="star-favorite-{{$index}}" ng-click="changeFavorite($event)">
+                    <i id="fav_star_favorite-{{$index}}" class="fa fa-star" ng-style="isFavorite(item)"></i>
                 </button>
             </p>
         </div>

@@ -7,55 +7,49 @@ app
 
         $scope.sortableArray = favoritePoiService.favorites;
 
-        $scope.uploadToServer = function() { // TODO : CHANGE TO ACTUAL HTTP REQUEST
-            $http({
-                method : "GET",
-                url : 'http://localhost:3000/private/favoritePoi',
-                headers: headers,
-                data: getSortedElements()
-            })
-                .then(function (response) {
-                    let pois = response.data;
-                    $scope.saved = pois;
-                    $scope.intro = "Here are your saved points of interest";
+        // TODO : CHANGE TO ACTUAL HTTP REQUEST
+        // $scope.uploadToServer = function() {
+        //     $http({
+        //         method : "GET",
+        //         url : 'http://localhost:3000/private/favoritePoi',
+        //         headers: headers,
+        //         data: getSortedElements()
+        //     })
+        //         .then(function (response) {
+        //             let pois = response.data;
+        //             $scope.saved = pois;
+        //             $scope.intro = "Here are your saved points of interest";
+        //
+        //             console.log(response.data)
+        //         }, function (err) {
+        //             console.log(err);
+        //             if (err.data === "No favorite POI found"){
+        //                 $scope.intro = "Looks like you don't have any saved points yet..";
+        //             }
+        //         });
 
-                    console.log(response.data)
-                }, function (err) {
-                    console.log(err);
-                    if (err.data === "No favorite POI found"){
-                        $scope.intro = "Looks like you don't have any saved points yet..";
+            $scope.getSortedElements = function() {
+                let listElements = $('#sortableArray').children();
+                let listValues = [];
+                let i = 1;
+                while (i <= listElements.length - 2) {
+                    let element = $('#sortableItem-' + i).children()[0];
+                    let name = element.children()[0].children[1].innerHTML;
+                    let time;
+                    if ($scope.favoritePoiService.isFavorite({name: name})) {
+
                     }
-                });
-        };
 
-        let setIntro = function() {
-            if (favoritePoiService.containsFavorites())
+                    // TODO : CHECK IF TIME ALREADY EXIST. IF SO, GET FROM ARRAY
+                    listValues.push({username: rUsername, poi: name, personalOrder: i, time: i});
+                    i++;
+                }
+                console.log(listValues);
+            };
+
+            if ($scope.sortableArray.length > 0)
                 $scope.intro = "Here are your favorite points of interest";
             else
-                $scope.intro = "Looks like you don't have any favorite points of interest yet..";
-        };
+                $scope.intro = "Looks like you don't have any favorite points of interest yet.."
 
-        $scope.getSortedElements = function() {
-            let listElements = $('#sortableArray').children();
-            let listValues = [];
-            let i = 1;
-            while (i <= listElements.length - 2) {
-                let element = $('#sortableItem-' + i).children()[0];
-                let picture = element.children()[0].children[0].attr('src');
-                let name = element.children()[0].children[1].innerHTML;
-                let category = element.children()[1].innerHTML;
-                let rank = element.children()[2].innerHTML;
-                let watched = element.children()[3].innerHTML; // TODO : ARRANGE INPUT FROM ORDER
-                listValues.push({favorite_poi: [{username: rUsername, poi: name, personalOrder: i, time: category: category, picture: picture, description: description,
-                    rank: rank, watched: watched}]});
-                i++;
-            }
-            console.log(listValues);
-        };
-
-        let sortEventHandler = function(event, ui) {
-            console.log("New Sort Order!");
-        };
-
-        $('#sortableArray').on("sortchange", sortEventHandler());
     }]);
