@@ -38,7 +38,13 @@ app.config(function ($routeProvider) {
            templateUrl: 'pages/pois.html',
            controller: 'poisController',
            controllerA: 'ctrl'
-       });
+       })
+        .when('/restorePassword', {
+        templateUrl: 'pages/restorePassword.html',
+        controller: 'restorePasswordController',
+        controllerA: 'ctrl'
+    });
+
        // .otherwise({redirectTo : '/'});
 });
 

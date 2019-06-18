@@ -100,6 +100,7 @@ app.controller('registerController', function($scope, $http, $window){
     $scope.reset();
     $scope.update = function(user) {
         $scope.master = angular.copy(user);
+        var ok =true;
         var categories = $scope.master.favoriteCat;
         var catTosend = Array();
         var count =0;
@@ -109,22 +110,26 @@ app.controller('registerController', function($scope, $http, $window){
                 if (index === "0") {
                     if (category === categories[1] || category === categories[2] || category === categories[3]) {
                         alert("Cant choose two similar categories ");
+                        ok = false;
                         reset();
                     }
                 } else if (index === "1") {
                     if (category === categories[0] || category === categories[2] || category === categories[3]) {
                         alert("Cant choose two similar categories ");
+                        ok = false;
                         reset();
                     }
                 } else if (index === "2") {
                     if (category === categories[1] || category === categories[0] || category === categories[3]) {
                         alert("Cant choose two similar categories ");
+                        ok = false;
                         reset();
                     }
                 }
                 if (index === "3") {
                     if (category === categories[1] || category === categories[2] || category === categories[0]) {
                         alert("Cant choose two similar categories ");
+                        ok = false;
                         reset();
                     }
                 } else {
@@ -137,8 +142,9 @@ app.controller('registerController', function($scope, $http, $window){
         if (count < 2) {
             alert("YOU MUST CHOOSE 2 OR MORE CATEGORIES")
             reset();
+            ok = false;
         }
-        else {
+        else if(ok) {
             var catCat = {};
             if (count === 2) {
                 let request2 = {
@@ -162,13 +168,13 @@ app.controller('registerController', function($scope, $http, $window){
                 };
                 $http(request2)
                     .then(function success(response) {
-                           alert("user"+ user.username + "singed successfully!")
+                           alert("user"+ user.username + " singed successfully!")
                             $window.location.href = "#!/login"
 
                         },
                         function error(err) {
                             console.log("error! info: " + err);
-                            alert(err);
+                            alert(err.data.toString());
                             $scope.username = err
                         })
             }
@@ -195,7 +201,8 @@ app.controller('registerController', function($scope, $http, $window){
                 };
                 $http(request2)
                     .then(function success(response) {
-                            alert(response);
+                            alert("user"+ user.username + " singed successfully!")
+                            $window.location.href = "#!/login"
                         },
                         function error(err) {
                             console.log("error! info: " + err);
@@ -225,7 +232,8 @@ app.controller('registerController', function($scope, $http, $window){
                 };
                 $http(request2)
                     .then(function success(response) {
-                            alert(response);
+                            alert("user"+ user.username + " singed successfully!")
+                            $window.location.href = "#!/login"
                         },
                         function error(err) {
                             console.log("error! info: " + err);
@@ -243,7 +251,6 @@ app.controller('registerController', function($scope, $http, $window){
 
         // check to make sure the form is completely valid
         if (isValid) {
-            alert('our form is amazing');
         }
 
     };
