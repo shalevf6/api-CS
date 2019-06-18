@@ -2,11 +2,7 @@
 
 /* BASIC */
 
-html {
-    background-color: #56baed;
-}
-
-body {
+body.login {
     font-family: "Poppins", sans-serif;
     height: 100vh;
 }

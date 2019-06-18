@@ -38,7 +38,7 @@
 <div class="row  justify-content-md-center" ng-show="ready">
 
     <div class="card w-75" >
-        <img class="card-img-top" style="max-height: 50%" ng-src="{{poi.picture}}" alt="Card image cap">
+        <img class="card-img-top mx-auto d-block" style="max-height: 50%;" ng-src="{{poi.picture}}" alt="Card image cap">
         <div class="card-header text-center">
             <h4 class="card-title font-weight-bold">{{poi.name}}</h4>
             <h6 class="card-subtitle mb-2 text-muted">New York City</h6>
@@ -79,9 +79,9 @@
                 <blockquote class="blockquote border border-info rounded text-center" style="padding: 4px;" ng-show="!reviews">
                     <p style="margin-top: 16px">Be the first to review this point!</p>
                 </blockquote>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Add a review</button>
+                <button ng-show="loggedIn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Add a review</button>
+                <button ng-show="!loggedIn" disabled class="btn btn-primary" >Log in to add a review</button>
             </div>
-
         </div>
     </div>
 </div>

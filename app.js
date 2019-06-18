@@ -2,7 +2,7 @@ var app = angular.module('myApp', ['ngRoute']);
 
 // setting root variables
 app.run(function ($rootScope) {
-   $rootScope.rUsername = sessionStorage.getItem('username');
+   $rootScope.rUsername = sessionStorage.getItem('username') || "Guest";
    $rootScope.rToken = sessionStorage.getItem('token');;
 });
 
@@ -10,8 +10,8 @@ app.run(function ($rootScope) {
 app.config(function ($routeProvider) {
    $routeProvider
        .when('/', {
-          templateUrl : 'pages/login/new-login.html',
-          controller : "loginController",
+          templateUrl : 'pages/entrancePage.html',
+          controller : "entranceController",
            controllerAS : "ctrl"
        })
        .when('/register', {

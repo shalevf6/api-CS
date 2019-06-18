@@ -6,6 +6,7 @@ app
          */
 
         var name = $routeParams.name;
+        $scope.loggedIn = sessionStorage.getItem('token');
 
         $http({
             method: 'GET',
