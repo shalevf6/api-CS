@@ -1,6 +1,6 @@
 app
-    .controller('welcomeController', function($scope, $http, $window){
-        $scope.recomended = [];
+    .controller('welcomeController', function($scope, $http, $window, favoritePoiService){
+        $scope.recommended = [];
         $scope.saved = [];
         $scope.intro = "undef";
 
@@ -15,7 +15,7 @@ app
             headers : headers
         })
             .then(function (res) {
-                $scope.recomended = res.data;
+                $scope.recommended = res.data;
                 console.log(res.data)
             }, function (err) {
                 console.log(err);
@@ -28,8 +28,8 @@ app
         })
             .then(function (response) {
                 let pois = response.data;
-                    $scope.saved = pois;
-                    $scope.intro = "Here are your saved points of interest";
+                $scope.saved = pois;
+                $scope.intro = "Here are your saved points of interest";
 
                 console.log(response.data)
             }, function (err) {
@@ -39,11 +39,15 @@ app
                 }
             });
 
-
-
-
         $scope.expandPoi = function () {
             $window.openWindow($window.location)
-        }
-        }
-    );
+        };
+
+        $scope.changeFavoriteFromWelcomeController = function($event, item) {
+            favoritePoiService.changeFavorite($event,item);
+        };
+
+        $scope.isFavoriteFromWelcomeController = function(poi) {
+            return favoritePoiService.isFavorite(poi);
+        };
+    });

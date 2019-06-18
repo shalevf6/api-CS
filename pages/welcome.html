@@ -2,16 +2,18 @@
 <div class="container-fluid">
     <h2>We found some recommendations for you</h2>
     <div class="row">
-        <div class="col text-center" ng-repeat="item in recomended">
+        <div class="col text-center" ng-repeat="item in recommended">
             <a tabber href="#!/singlePoi/{{item.name}}">
-            <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-<!--            <p ng-repeat="(x,y) in item">{{x+ " "  +y}}</p>-->
-            <p><span ng-click="expandPoi()">Name: {{item.name}}</span></p>
+                <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
+                <p><span ng-click="expandPoi()">Name: {{item.name}}</span></p>
             </a>
             <p><span>Category: {{item.category}}</span></p>
             <p><span>Rank: {{item.rank}}</span></p>
             <p><span>Watched: {{item.watched}}</span></p>
-
+            <p>
+                <i id="fav_star_recommended-{{$index}}" ng-style="isFavoriteFromWelcomeController(item)" class="fa fa-star"
+                   ng-click="changeFavoriteFromWelcomeController($event, item)"></i>
+            </p>
         </div>
     </div>
 
@@ -23,13 +25,14 @@
         <div class="col text-center" ng-repeat="item in saved">
             <a tabber href="#!/singlePoi/{{item.name}}">
                 <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-                <!--            <p ng-repeat="(x,y) in item">{{x+ " "  +y}}</p>-->
                 <p><span ng-click="expandPoi()">Name: {{item.name}}</span></p>
             </a>
             <p><span>Category: {{item.category}}</span></p>
             <p><span>Rank: {{item.rank}}</span></p>
-            <p><span>Watched: {{item.watched}}</span></p>\
-
+            <p><span>Watched: {{item.watched}}</span></p>
+            <p>
+                <i id="fav_star_favorite-{{$index}}" class="fa fa-star" ng-style="isFavorite(item)"
+                   ng-click="changeFavorite($event)"></i>
             </p>
         </div>
     </div>
