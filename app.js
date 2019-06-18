@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute', 'as.sortable']);
 
 // setting root variables
 app.run(function ($rootScope) {
@@ -39,6 +39,11 @@ app.config(function ($routeProvider) {
            controller: 'poisController',
            controllerA: 'ctrl'
        })
+       .when('/userFavoritePOIs', {
+           templateUrl: 'pages/favoritePois.html',
+           controller: 'favoritePoisController',
+           controllerAs: 'ctrl'
+       });
         .otherwise({redirectTo : '/'});
 });
 
@@ -82,4 +87,51 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
       $window.location.href = '#!/POIS'
   };
    
+});
+
+app.service('favoritePoiService', function () {
+
+    this.favorites = [];
+
+    this.addFavorite = function (poi) {
+        // // TODO : MAKE SURE THE time VALUE IS CORRECT
+        // this.favorites.push({username: rUsername, poi: poi.name, personalOrder: poi.personalOrder, time: new Date().toISOString()});
+        this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
+            rank: poi.rank, watched: poi.watched});
+    };
+
+    this.removeFavorite = function (poi) {
+        angular.forEach(this.favorites, function (favorite, index, obj) {
+            if (favorite.name === poi.name) {
+                obj.splice(index, 1);
+            }
+        });
+    };
+
+    this.isFavorite = function (poi) {
+        angular.forEach(this.favorites, function(favorite, index) {
+            if (favorite.name === poi.name) {
+                return 'color: rgb(100, 55, 0)';
+            }
+        });
+        return 'color: rgb(0, 0, 0)';
+    };
+
+    this.getPOITime = function (poi) {
+        // TODO : COMPLETE THE FUNCTION
+    };
+
+    this.changeFavorite = function ($event, item){
+        let id = $event.target.id;
+        let jqueryElement = $('#' + id);
+        let color = jqueryElement.css('color');
+        if (color === "rgb(0, 0, 0)") {
+            jqueryElement.css('color', 'darkorange');
+            this.addFavorite(item);
+        }
+        else {
+            jqueryElement.css('color', 'black');
+            this.removeFavorite(item);
+        }
+    };
 });

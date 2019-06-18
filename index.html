@@ -16,6 +16,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
     <!--      end import    -->
 
     <!--    import of Angular    -->
@@ -24,6 +25,9 @@
     <!--      end import      -->
 
     <link type="text/html" rel="stylesheet" href="resources/css/root.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="resources/sortable/ng-sortable.css">
 </head>
 
 
@@ -32,12 +36,16 @@
     <!--    load app    -->
     <script src="app.js"></script>
 
+    <!--    load more js files   TODO : FOR SORTABLE  -->
+    <script src="resources/sortable/ng-sortable.js"></script>
+
     <!--    load controllers    -->
     <script src="js/registerController.js"></script>
     <script src="js/loginController.js"></script>
     <script src="js/welcome.js"></script>
     <script src="js/openPageController.js"></script>
     <script src="js/poisController.js"></script>
+    <script src="js/favoritePoisController.js"></script>
     <script src="js/singlePoi.js"></script>
 
 
@@ -73,7 +81,7 @@
                     <a class="nav-link" href="#!/userProfile">my profile</a>
                 </li>
                 <li class="nav-item" ng-show="rToken">
-                    <a class="nav-link" href="#!/userFavouritePOI">FavouritePOI</a>
+                    <a class="nav-link" href="#!/userFavoritePOIs">FavouritePOI</a>
                 </li>
                 <li class="nav-item" ng-show="rToken">
                     <a class="nav-link" href="#!/POIS">Explore your ass</a>

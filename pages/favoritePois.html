@@ -1,0 +1,27 @@
+<h1>{{rUsername}}, we have some stuff for you</h1>
+<div class="container-fluid">
+    <h2 ng-model="intro">{{intro}}</h2>
+    <div class="row justify-content-center">
+        <ul id="sortableArray" data-as-sortable data-ng-model="sortableArray">
+            <li id="sortableItem-{{$index}}" ng-repeat="item in sortableArray" data-as-sortable-item>
+                <div data-as-sortable-item-handle>
+                    <a tabber href="#!/singlePoi/{{item.name}}">
+                        <img class="img-thumbnail div-img rounded" height="750px" width="750px" ng-src="{{item.picture}}">
+                        <p><span ng-click="expandPoi()">Name: {{item.name}}</span></p>
+                    </a>
+                    <p><span>Category: {{item.category}}</span></p>
+                    <p><span>Rank: {{item.rank}}</span></p>
+                    <p><span>Watched: {{item.watched}}</span></p>
+                    <p>
+                        <i id="fav_star_in_favorites-{{$index}}" class="fa fa-star" ng-style="isFavoriteFromFavoriteController(item)"
+                           ng-click="changeFavoriteFromFavoriteController($event, item)"></i>
+                    </p>
+                </div>
+            </li>
+            <br>
+            <div>
+                <button ng-click="getSortedElements()" class="save_in_server">Save Favorites</button>
+            </div>
+        </ul>
+    </div>
+</div>
