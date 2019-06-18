@@ -13,11 +13,9 @@
                     <p><span>Rank: {{item.rank}}</span></p>
                     <p><span>Watched: {{item.watched}}</span></p>
                     <p>
-                        <button class="star-recommended-{{$index}}" ng-click="changeFavorite($event, item)">
-                            <i id="fav_star_in_favorites-{{$index}}" class="fa fa-star" ng-style="isFavorite(item)"></i>
-                        </button>
+                        <i id="fav_star_in_favorites-{{$index}}" class="fa fa-star" ng-style="isFavoriteFromController(item)"
+                           ng-click="changeFavoriteFromController($event, item)"></i>
                     </p>
-                    <!--                    index: {{$index}} | name: {{item.name}} | category: {{item.category}}-->
                 </div>
             </li>
             <br>

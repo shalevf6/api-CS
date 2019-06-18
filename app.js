@@ -115,7 +115,7 @@ app.service('favoritePoiService', function () {
     };
 
     this.isFavorite = function (poi) {
-        angular.forEach(favorites, function(favorite, index) {
+        angular.forEach(this.favorites, function(favorite, index) {
             if (favorite.name === poi.name) {
                 return 'color: darkorange';
             }
@@ -133,8 +133,11 @@ app.service('favoritePoiService', function () {
     };
 
     this.changeFavorite = function ($event, item){
-        let color = $event.currentTarget.style.color;
-        let id = $event.currentTarget.id;
+        let x = $event.target;
+        let y = x.style;
+        let z = y.color;
+        let color = angular.element($event.target.closest('i')).style.color;
+        let id = $event.target.id;
         if (color === 'darkorange') {
             $("#" + id).css('color', 'black');
             this.removeFavorite(item);

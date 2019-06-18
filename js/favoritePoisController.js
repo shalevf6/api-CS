@@ -7,6 +7,14 @@ app
 
         $scope.sortableArray = favoritePoiService.favorites;
 
+        $scope.changeFavoriteFromController = function(event, item) {
+            $scope.favoritePoiService.changeFavorite(event.currentTarget,item);
+        };
+
+        $scope.isFavoriteFromController = function(poi) {
+            return $scope.favoritePoiService.isFavorite(poi);
+        };
+
         // TODO : CHANGE TO ACTUAL HTTP REQUEST
         // $scope.uploadToServer = function() {
         //     $http({
@@ -50,6 +58,6 @@ app
             if ($scope.sortableArray.length > 0)
                 $scope.intro = "Here are your favorite points of interest";
             else
-                $scope.intro = "Looks like you don't have any favorite points of interest yet.."
+                $scope.intro = "Looks like you don't have any favorite points of interest yet..";
 
     }]);
