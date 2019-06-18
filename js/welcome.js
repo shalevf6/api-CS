@@ -2,7 +2,7 @@ app
     .controller('welcomeController', function($scope, $http, $window, favoritePoiService){
         $scope.recommended = [];
         $scope.saved = [];
-        $scope.intro = "undef";
+        $scope.hasFav = false;
 
         let headers = {
             "x-auth-token" : sessionStorage.getItem('token'),
@@ -29,19 +29,15 @@ app
             .then(function (response) {
                 let pois = response.data;
                 $scope.saved = pois;
-                $scope.intro = "Here are your saved points of interest";
+                $scope.hasFav = true;
+                $('#savedPois').addClass('alert-success');
 
                 console.log(response.data)
             }, function (err) {
                 console.log(err);
-                if (err.data === "No favorite POI found"){
-                    $scope.intro = "Looks like you don't have any saved points yet..";
-                }
+                $scope.hasFav = false;
+                $('#savedPois').addClass('alert-danger');
             });
-
-        $scope.expandPoi = function () {
-            $window.openWindow($window.location)
-        };
 
         $scope.changeFavoriteFromWelcomeController = function($event, item) {
             favoritePoiService.changeFavorite($event,item);

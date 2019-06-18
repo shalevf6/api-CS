@@ -6,21 +6,36 @@
 </head>
 <body>
 
-<select id="selection" ng-model="selection" ng-show="fetched" ng-change="updateResults()" >
-    <!--    <option ng-selected="initor">Show All</option>-->
-    <option class="text-capitalize" ng-repeat="cat in categories">{{cat.name}}</option>
-</select>
+<form>
+    <div class="container">
+        <div class="form-row justify-content-md-center">
+            <div class="col-4">
+                <select class="custom-select" id="selection" ng-model="selection" ng-show="fetched" ng-change="updateResults()" >
+                    <!--    <option ng-selected="initor">Show All</option>-->
+                    <option class="text-capitalize" ng-repeat="cat in categories">{{cat.name}}</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <input class="form-control" ng-model="searchVal" type="text"
+                       placeholder="Search..." ng-show="fetched" ng-change="updateResults()" >
+            </div>
 
-<input ng-model="searchVal" type="text" ng-show="fetched" ng-change="updateResults()" >
+        </div>
+    </div>
+</form>
+
+
+
 
 <br><br>
 
 <div class="container-fluid">
-    <div class="row" ng-repeat="(key, value) in results">
+    <div class="row  mb-4" ng-repeat="(key, value) in results">
         <div class="col wd-25" id="colSearch" ng-repeat="item in value">
             <figure  class="search-img" id="{{item.name}}" ng-click="poiClicked($event)">
                 <img class="img-thumbnail rounded" height="400px" width="400px" ng-src="{{item.picture}}">
                 <figcaption class="figure-caption text-center">{{item.name}}</figcaption>
+                <figcaption class="figure-caption text-center">{{item.category}}</figcaption>
             </figure>
 
         </div>

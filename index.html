@@ -16,7 +16,6 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
     <!--      end import    -->
 
     <!--    import of Angular    -->
@@ -78,21 +77,24 @@
                     <a class="nav-link" href="#!/" ng-show="rToken" ng-click="logout()">Logout</a>
                 </li>
                 <li class="nav-item" ng-show="rToken">
-                    <a class="nav-link" href="#!/userProfile">my profile</a>
+                    <a class="nav-link" href="#!/welcome">My Zone</a>
+                </li>
+                <li class="nav-item" ng-show="rToken"> <!-- TODO: add show and hide for badge -->
+                    <a class="nav-link" href="#!/userFavoritePOIs">FavouritePOI <span class="badge badge-success">3</span></a>
                 </li>
                 <li class="nav-item" ng-show="rToken">
-                    <a class="nav-link" href="#!/userFavoritePOIs">FavouritePOI</a>
-                </li>
-                <li class="nav-item" ng-show="rToken">
-                    <a class="nav-link" href="#!/POIS">Explore your ass</a>
+                    <a class="nav-link" href="#!/POIS">Explore NYC</a>
                 </li>
             </ul>
             
 
-            <form class="form-inline" ng-show="rToken">
-                <input class="form-control mr-sm-2" ng-model="text" id="searchVal" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" ng-click="search()">Search</button>
-            </form>
+            <div class="align-self-end">
+                <form class="form-inline my-2 my-lg-0" ng-show="rToken">
+                    <input class="form-control mr-sm-2" ng-model="text" id="searchVal" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" ng-click="search()">Search</button>
+                </form>
+            </div>
+
 
 
         </div>

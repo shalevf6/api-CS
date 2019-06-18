@@ -1,6 +1,21 @@
-<h1>{{rUsername}}, we have some stuff for you</h1>
+<style>
+    #explore:hover {
+        cursor: pointer;
+    }
+</style>
 <div class="container-fluid">
-    <h2>We found some recommendations for you</h2>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Hi {{rUsername}}!</h1>
+            <p class="lead">This page was made especially for your interests.</p>
+        </div>
+    </div>
+
+    <div class="alert alert-primary" role="alert">
+        <h4 class="alert-heading">We have found some recommendations for you!</h4>
+        <hr>
+        <p>Based on the categories you like, we think you might want to check these places</p>
+    </div>
     <div class="row">
         <div class="col text-center" ng-repeat="item in recommended">
             <a tabber href="#!/singlePoi/{{item.name}}">
@@ -20,7 +35,14 @@
 </div>
 
 <div class="container-fluid">
-    <h2>{{intro}}</h2>
+    <div id="savedPois" class="alert" role="alert">
+        <h4 class="alert-heading">Your last saved points</h4>
+        <hr>
+        <p ng-show="hasFav">Remember those? <br> We have them right here so you won't forget</p>
+        <p ng-show="!hasFav">Oops.. Looks like you dont have any saved points yet! <br>Go ahead and
+            <a id="explore" href="#!/POIS" class="alert-link">Explore</a>
+        </p>
+    </div>
     <div class="row">
         <div class="col text-center" ng-repeat="item in saved">
             <a tabber href="#!/singlePoi/{{item.name}}">
