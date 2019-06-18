@@ -2,16 +2,16 @@ var app = angular.module('myApp', ['ngRoute', 'as.sortable']);
 
 // setting root variables
 app.run(function ($rootScope) {
-   $rootScope.rUsername = "Guest";
-   $rootScope.rToken = "";
+   $rootScope.rUsername = sessionStorage.getItem('username');
+   $rootScope.rToken = sessionStorage.getItem('token');;
 });
 
 //  routing configurations
 app.config(function ($routeProvider) {
    $routeProvider
        .when('/', {
-          templateUrl : 'pages/mainPage.html',
-          controller : "mainPageController",
+          templateUrl : 'pages/login/new-login.html',
+          controller : "loginController",
            controllerAS : "ctrl"
        })
        .when('/register', {
@@ -20,7 +20,7 @@ app.config(function ($routeProvider) {
           controllerAs : 'ctrl'
        })
        .when('/login', {
-          templateUrl : 'pages/login/login.html',
+          templateUrl : 'pages/login/new-login.html',
           controller : 'loginController',
           controllerAs : 'ctrl'
        })
@@ -29,8 +29,8 @@ app.config(function ($routeProvider) {
            controller : 'welcomeController',
            controllerAs : 'ctrl'
        })
-       .when('singlePoi/:name', {
-           templateUrl : 'pages/singlepage.html',
+       .when('/singlePoi/:name', {
+           templateUrl : 'pages/singlePoi.html',
            controller : 'singlePoiController',
            controllerAs : 'ctrl'
        })
@@ -39,13 +39,12 @@ app.config(function ($routeProvider) {
            controller: 'poisController',
            controllerA: 'ctrl'
        })
-
        .when('/userFavoritePOIs', {
            templateUrl: 'pages/favoritePois.html',
            controller: 'favoritePoisController',
            controllerAs: 'ctrl'
        });
-       // .otherwise({redirectTo : '/'});
+        .otherwise({redirectTo : '/'});
 });
 
 app.service("header", function () {
@@ -55,21 +54,26 @@ app.service("header", function () {
     }
 });
 
-app.directive('tabber', function() {
-    return {
-        compile: function (element) {
-            var elems = (element.prop("tagName") === 'A') ? element : element.find('a');
-            elems.attr("target", "_blank");
-        }
+app.service('search', function () {
+    this.value = "";
+    this.setVal = function (value) {
+        this.value = value;
     };
+    this.getVal = function () {
+        let val = this.value;
+        this.value = '';
+        return val;
+    }
 });
 
 
+
 //  main controller
-app.controller('mainController', function ($scope, $http, $window, $rootScope) {
+app.controller('mainController', function ($scope, $http, $window, $rootScope, search) {
 
    $scope.logout = function(){
-      sessionStorage.removeItem('curUser');
+      sessionStorage.removeItem('username');
+      sessionStorage.removeItem('token');
       $rootScope.rUsername = "Guest";
       $rootScope.rToken = "";
 
@@ -79,18 +83,8 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope) {
   };
 
   $scope.search = function () {
-      if (!$scope.text){
-          alert('fuck off');
-          return;
-      }
-
-      $http.get("http://localhost:3000/poi/" + $scope.text, {headers: {"Content-Type" : "application/json",
-              "Access-Control-Allow-Origin" : "*"}})
-          .then(function (res) {
-              console.log(res)
-          }, function (err) {
-              console.log(err)
-          })
+      search.setVal($scope.text);
+      $window.location.href = '#!/POIS'
   };
    
 });

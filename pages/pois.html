@@ -2,30 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/root.css">
 </head>
 <body>
 
-<select id="selection" ng-model="selection" ng-change="updateResults()">
-    <option>Show All</option>
-    <option ng-repeat="cat in categories">{{cat.name}}</option>
+<select id="selection" ng-model="selection" ng-show="fetched" ng-change="updateResults()" >
+    <!--    <option ng-selected="initor">Show All</option>-->
+    <option class="text-capitalize" ng-repeat="cat in categories">{{cat.name}}</option>
 </select>
 
-<input ng-model="searchVal" type="text" ng-change="updateResults()" >
+<input ng-model="searchVal" type="text" ng-show="fetched" ng-change="updateResults()" >
+
+<br><br>
 
 <div class="container-fluid">
-    <div class="row" ng-repeat="arr in results">
-        <div class="col" ng-repeat="item in arr">
-            <a tabber href="#!/singlePoi/{{item.name}}">
-                <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-                <!--            <p ng-repeat="(x,y) in item">{{x+ " "  +y}}</p>-->
-                <p><span ng-click="expandPoi()">Name: {{item.name}}</span></p>
-            </a>
-            <p><span>Category: {{item.category}}</span></p>
-            <p><span>Rank: {{item.rank}}</span></p>
-            <p><span>Watched: {{item.watched}}</span></p>
+    <div class="row" ng-repeat="(key, value) in results">
+        <div class="col wd-25" id="colSearch" ng-repeat="item in value">
+            <figure  class="search-img" id="{{item.name}}" ng-click="poiClicked($event)">
+                <img class="img-thumbnail rounded" height="400px" width="400px" ng-src="{{item.picture}}">
+                <figcaption class="figure-caption text-center">{{item.name}}</figcaption>
+            </figure>
 
         </div>
     </div>
+
+    <h2 ng-show="size === 0">We couldn't find any points that meet your search</h2>
 
 </div>
 

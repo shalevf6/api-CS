@@ -21,13 +21,8 @@ app.controller('loginController', function($scope, $http, $window, $rootScope){
             console.log('logged in!');
             console.log('token: ' + response);
 
-
-            sessionStorage.setItem(
-                "curUser", JSON.stringify({
-                    token : response.data,
-                    username : ctrl.username
-                })
-            );
+            sessionStorage.setItem('token', response.data);
+            sessionStorage.setItem('username', ctrl.username);
 
             $rootScope.rUsername = $scope.username;
             $rootScope.rToken = response.data;
@@ -35,7 +30,7 @@ app.controller('loginController', function($scope, $http, $window, $rootScope){
         },
         function error(err){
             console.log("error! info: " + err);
-            $scope.username = err
+            alert(JSON.stringify(err))
         })
     }
 

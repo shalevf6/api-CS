@@ -5,7 +5,7 @@ app
         $scope.intro = "undef";
 
         let headers = {
-            "x-auth-token" : JSON.parse(sessionStorage.getItem("curUser")).token,
+            "x-auth-token" : sessionStorage.getItem('token'),
             "Access-Control-Allow-Origin" : "*"
         };
 
