@@ -11,7 +11,7 @@
             <p><span>Rank: {{item.rank}}</span></p>
             <p><span>Watched: {{item.watched}}</span></p>
             <p>
-                <i id="fav_star_recommended-{{$index}}" class="fa fa-star" ng-style="isFavoriteFromWelcomeController(item)"
+                <i id="fav_star_recommended-{{$index}}" ng-style="isFavoriteFromWelcomeController(item)" class="fa fa-star"
                    ng-click="changeFavoriteFromWelcomeController($event, item)"></i>
             </p>
         </div>

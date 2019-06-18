@@ -117,34 +117,27 @@ app.service('favoritePoiService', function () {
     this.isFavorite = function (poi) {
         angular.forEach(this.favorites, function(favorite, index) {
             if (favorite.name === poi.name) {
-                return 'color: darkorange';
+                return 'color: rgb(100, 55, 0)';
             }
         });
-        return 'color: black';
+        return 'color: rgb(0, 0, 0)';
     };
 
-    this.getTime = function (poi) {
-        angular.forEach(favorites, function(favorite, index) {
-            if (favorite.name === poi.name) {
-                return 'color: darkorange';
-            }
-        });
-        return 'color: black';
+    this.getPOITime = function (poi) {
+        // TODO : COMPLETE THE FUNCTION
     };
 
     this.changeFavorite = function ($event, item){
-        let x = $event.target;
-        let y = x.style;
-        let z = y.color;
-        let color = angular.element($event.target.closest('i')).style.color;
         let id = $event.target.id;
-        if (color === 'darkorange') {
-            $("#" + id).css('color', 'black');
-            this.removeFavorite(item);
+        let jqueryElement = $('#' + id);
+        let color = jqueryElement.css('color');
+        if (color === "rgb(0, 0, 0)") {
+            jqueryElement.css('color', 'darkorange');
+            this.addFavorite(item);
         }
         else {
-            $("#" + id).css('color', 'darkorange');
-            this.addFavorite(item);
+            jqueryElement.css('color', 'black');
+            this.removeFavorite(item);
         }
     };
 });

@@ -7,11 +7,11 @@ app
 
         $scope.sortableArray = favoritePoiService.favorites;
 
-        $scope.changeFavoriteFromController = function(event, item) {
+        $scope.changeFavoriteFromFavoriteController = function(event, item) {
             $scope.favoritePoiService.changeFavorite(event.currentTarget,item);
         };
 
-        $scope.isFavoriteFromController = function(poi) {
+        $scope.isFavoriteFromFavoriteController = function(poi) {
             return $scope.favoritePoiService.isFavorite(poi);
         };
 
