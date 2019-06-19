@@ -26,8 +26,10 @@
             <p><span>Rank: {{item.rank}}</span></p>
             <p><span>Watched: {{item.watched}}</span></p>
             <p>
-                <i id="fav_star_recommended-{{$index}}" ng-init="setFavoriteFromWelcomeController(item, $index);" class="fa fa-star"
+                <i id="fav_star_recommended-{{$index}}" class="fa fa-star"
+                   ng-style="{color: item.color}"
                    ng-click="changeFavoriteFromWelcomeController($event, item)"></i>
+                <!--                ng-class="{true: 'black_star', false: 'darkorange_star'}[isFavoriteFromWelcomeController] (item)"-->
             </p>
         </div>
     </div>

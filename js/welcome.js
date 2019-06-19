@@ -15,7 +15,16 @@ app
             headers : headers
         })
             .then(function (res) {
-                $scope.recommended = res.data;
+                let initialTempRecommended = res.data;
+                let secondTempRecommended = [];
+                for (let i = 0; i < initialTempRecommended.length; i++) {
+                    let color = favoritePoiService.isFavorite(initialTempRecommended[i]);
+                    secondTempRecommended.push({name: initialTempRecommended[i].name, category: initialTempRecommended[i].category,
+                        picture: initialTempRecommended[i].picture, description: initialTempRecommended[i].description,
+                        rank: initialTempRecommended[i].rank, watched: initialTempRecommended[i].watched,
+                        color: color});
+                }
+                $scope.recommended = secondTempRecommended;
                 console.log(res.data)
             }, function (err) {
                 console.log(err);
@@ -27,11 +36,18 @@ app
             headers: headers
         })
             .then(function (response) {
-                let pois = response.data;
-                $scope.saved = pois;
+                let initialTempRecommended = response.data;
+                let secondTempRecommended = [];
+                for (let i = 0; i < initialTempRecommended.length; i++) {
+                    let color = favoritePoiService.isFavorite(initialTempRecommended[i]);
+                    secondTempRecommended.push({name: initialTempRecommended[i].name, category: initialTempRecommended[i].category,
+                        picture: initialTempRecommended[i].picture, description: initialTempRecommended[i].description,
+                        rank: initialTempRecommended[i].rank, watched: initialTempRecommended[i].watched,
+                        color: color});
+                }
+                $scope.saved = secondTempRecommended;
                 $scope.hasFav = true;
                 $('#savedPois').addClass('alert-success');
-
                 console.log(response.data)
             }, function (err) {
                 console.log(err);
@@ -41,11 +57,5 @@ app
 
         $scope.changeFavoriteFromWelcomeController = function($event, item) {
             favoritePoiService.changeFavorite($event,item);
-        };
-
-        $scope.setFavoriteFromWelcomeController = function(poi, index) {
-            let color = favoritePoiService.isFavorite(poi);
-            let jqueryElement = $('#fav_star_recommended-' + index);
-            jqueryElement.css('color', color);
         };
     });
