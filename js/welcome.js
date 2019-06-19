@@ -43,7 +43,9 @@ app
             favoritePoiService.changeFavorite($event,item);
         };
 
-        $scope.isFavoriteFromWelcomeController = function(poi) {
-            return favoritePoiService.isFavorite(poi);
+        $scope.setFavoriteFromWelcomeController = function(poi, index) {
+            let color = favoritePoiService.isFavorite(poi);
+            let jqueryElement = $('#fav_star_recommended-' + index);
+            jqueryElement.css('color', color);
         };
     });

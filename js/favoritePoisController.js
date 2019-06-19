@@ -1,58 +1,78 @@
 app
-    .controller('favoritePoisController', ['$scope','favoritePoiService',  function ( $scope, favoritePoiService) {
+    .controller('favoritePoisController', ['$scope','favoritePoiService', 'pois', '$rootScope',
+        function ( $scope, favoritePoiService, pois, $rootScope) {
 
-        $scope.favoritePoiService = favoritePoiService;
+            $scope.intro = "undef";
 
-        $scope.intro = "undef";
+            let tempFavorites = favoritePoiService.favorites;
+            let tempPOINames = [];
+            angular.forEach(tempFavorites, function(favorite) {
+                tempPOINames.push(favorite.poi);
+            });
 
-        $scope.sortableArray = favoritePoiService.favorites;
+            let tempPOIs = pois.getPois(tempPOINames);
 
-        $scope.changeFavoriteFromFavoriteController = function(event, item) {
-            $scope.favoritePoiService.changeFavorite(event.currentTarget,item);
-        };
+            let tempSortableArray = [];
+            for(let i = 0; i < tempPOIs.length; i++) {
+                let personalOrder;
+                let time;
+                for (let j = 0; j < tempFavorites.length; j++) {
+                    if (tempPOIs[i].name === tempFavorites[j].poi) {
+                        personalOrder = tempFavorites[j].personalOrder;
+                        time = tempFavorites[j].time;
+                        break;
+                    }
+                }
+                tempSortableArray.push({name: tempPOIs[i].name, category: tempPOIs[i].category, picture: tempPOIs[i].picture,
+                    description: tempPOIs[i].description, rank: tempPOIs[i].rank, watched: tempPOIs[i].watched,
+                    personalOrder: personalOrder, time: time});
+            }
 
-        $scope.isFavoriteFromFavoriteController = function(poi) {
-            return $scope.favoritePoiService.isFavorite(poi);
-        };
+            tempSortableArray.sort((a,b) =>  (a.personalOrder < b.personalOrder) ? -1 : ((b.personalOrder < a.personalOrder) ? 1 : 0));
 
-        // TODO : CHANGE TO ACTUAL HTTP REQUEST
-        // $scope.uploadToServer = function() {
-        //     $http({
-        //         method : "GET",
-        //         url : 'http://localhost:3000/private/favoritePoi',
-        //         headers: headers,
-        //         data: getSortedElements()
-        //     })
-        //         .then(function (response) {
-        //             let pois = response.data;
-        //             $scope.saved = pois;
-        //             $scope.intro = "Here are your saved points of interest";
-        //
-        //             console.log(response.data)
-        //         }, function (err) {
-        //             console.log(err);
-        //             if (err.data === "No favorite POI found"){
-        //                 $scope.intro = "Looks like you don't have any saved points yet..";
-        //             }
-        //         });
+            $scope.sortableArray = tempSortableArray;
+
+            $scope.changeFavoriteFromFavoriteController = function($event, item) {
+                favoritePoiService.changeFavorite($event,item);
+            };
+
+            $scope.dragControlListeners = {
+                orderChanged: function(event) {
+                    favoritePoiService.setFavorites($scope.getSortedElements());
+                }};
+
+            // TODO : CHANGE TO ACTUAL HTTP REQUEST
+            // $scope.uploadToServer = function() {
+            //     $http({
+            //         method : "GET",
+            //         url : 'http://localhost:3000/private/favoritePoi',
+            //         headers: headers,
+            //         data: getSortedElements()
+            //     })
+            //         .then(function (response) {
+            //             let pois = response.data;
+            //             $scope.saved = pois;
+            //             $scope.intro = "Here are your saved points of interest";
+            //
+            //             console.log(response.data)
+            //         }, function (err) {
+            //             console.log(err);
+            //             if (err.data === "No favorite POI found"){
+            //                 $scope.intro = "Looks like you don't have any saved points yet..";
+            //             }
+            //         });
 
             $scope.getSortedElements = function() {
-                let listElements = $('#sortableArray').children();
                 let listValues = [];
                 let i = 1;
-                while (i <= listElements.length - 2) {
-                    let element = $('#sortableItem-' + i).children()[0];
-                    let name = element.children()[0].children[1].innerHTML;
-                    let time;
-                    if ($scope.favoritePoiService.isFavorite({name: name})) {
-
-                    }
-
-                    // TODO : CHECK IF TIME ALREADY EXIST. IF SO, GET FROM ARRAY
-                    listValues.push({username: rUsername, poi: name, personalOrder: i, time: i});
+                while (i - 1 < $scope.sortableArray.length) {
+                    let name = $scope.sortableArray[i-1].name;
+                    let time = favoritePoiService.getPOITime(name);
+                    listValues.push({username: $rootScope.rUsername, poi: name, personalOrder: i, time: time});
                     i++;
                 }
                 console.log(listValues);
+                return listValues;
             };
 
             if ($scope.sortableArray.length > 0)
@@ -60,4 +80,6 @@ app
             else
                 $scope.intro = "Looks like you don't have any favorite points of interest yet..";
 
-    }]);
+
+
+        }]);

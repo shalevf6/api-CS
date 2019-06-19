@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <h2 ng-model="intro">{{intro}}</h2>
     <div class="row justify-content-center">
-        <ul id="sortableArray" data-as-sortable data-ng-model="sortableArray">
+        <ul id="sortableArray" data-as-sortable="dragControlListeners" data-ng-model="sortableArray">
             <li id="sortableItem-{{$index}}" ng-repeat="item in sortableArray" data-as-sortable-item>
                 <div data-as-sortable-item-handle>
                     <a tabber href="#!/singlePoi/{{item.name}}">
@@ -13,7 +13,7 @@
                     <p><span>Rank: {{item.rank}}</span></p>
                     <p><span>Watched: {{item.watched}}</span></p>
                     <p>
-                        <i id="fav_star_in_favorites-{{$index}}" class="fa fa-star" ng-style="isFavoriteFromFavoriteController(item)"
+                        <i id="fav_star_in_favorites-{{$index}}" style="color:darkorange" class="fa fa-star"
                            ng-click="changeFavoriteFromFavoriteController($event, item)"></i>
                     </p>
                 </div>
