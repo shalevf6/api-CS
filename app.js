@@ -96,14 +96,6 @@ app.service('pois', function(header){
             }
         }
 
-        // for (let i = POIOrders.length - 1; i > 0; i--) {
-        //     for (let j = 0; j < POIs.length; j++) {
-        //         if (POIOrders[i].poi === POIs[j].name) {
-        //             POIs.unshift(POIs.splice(i, 1));
-        //         }
-        //     }
-        // }
-
         return POIs;
     };
 });
@@ -152,10 +144,10 @@ app.service('favoritePoiService', function ($rootScope) {
     this.isFavorite = function (poi) {
         for (let i = 0; i < this.favorites.length; i++) {
             if (this.favorites[i].poi === poi.name) {
-                return 'color:darkorange';
+                return 'darkorange';
             }
         }
-        return 'color:black';
+        return 'black';
     };
 
     this.getPOITime = function (poiName) {
