@@ -2,48 +2,48 @@ var app = angular.module('myApp', ['ngRoute', 'as.sortable']);
 
 // setting root variables
 app.run(function ($rootScope) {
-   $rootScope.rUsername = sessionStorage.getItem('username') || "Guest";
-   $rootScope.rToken = sessionStorage.getItem('token');;
+    $rootScope.rUsername = sessionStorage.getItem('username') || "Guest";
+    $rootScope.rToken = sessionStorage.getItem('token');
 });
 
 //  routing configurations
 app.config(function ($routeProvider) {
-   $routeProvider
-       .when('/', {
-          templateUrl : 'pages/entrancePage.html',
-          controller : "entranceController",
-           controllerAS : "ctrl"
-       })
-       .when('/register', {
-          templateUrl : 'pages/register.html',
-          controller : 'registerController',
-          controllerAs : 'ctrl'
-       })
-       .when('/login', {
-          templateUrl : 'pages/login/new-login.html',
-          controller : 'loginController',
-          controllerAs : 'ctrl'
-       })
-       .when('/welcome', {
-           templateUrl : 'pages/welcome.html',
-           controller : 'welcomeController',
-           controllerAs : 'ctrl'
-       })
-       .when('/singlePoi/:name', {
-           templateUrl : 'pages/singlePoi.html',
-           controller : 'singlePoiController',
-           controllerAs : 'ctrl'
-       })
-       .when('/POIS', {
-           templateUrl: 'pages/pois.html',
-           controller: 'poisController',
-           controllerA: 'ctrl'
-       })
-       .when('/userFavoritePOIs', {
-           templateUrl: 'pages/favoritePois.html',
-           controller: 'favoritePoisController',
-           controllerAs: 'ctrl'
-       })
+    $routeProvider
+        .when('/', {
+            templateUrl : 'pages/entrancePage.html',
+            controller : "entranceController",
+            controllerAS : "ctrl"
+        })
+        .when('/register', {
+            templateUrl : 'pages/register.html',
+            controller : 'registerController',
+            controllerAs : 'ctrl'
+        })
+        .when('/login', {
+            templateUrl : 'pages/login/new-login.html',
+            controller : 'loginController',
+            controllerAs : 'ctrl'
+        })
+        .when('/welcome', {
+            templateUrl : 'pages/welcome.html',
+            controller : 'welcomeController',
+            controllerAs : 'ctrl'
+        })
+        .when('/singlePoi/:name', {
+            templateUrl : 'pages/singlePoi.html',
+            controller : 'singlePoiController',
+            controllerAs : 'ctrl'
+        })
+        .when('/POIS', {
+            templateUrl: 'pages/pois.html',
+            controller: 'poisController',
+            controllerA: 'ctrl'
+        })
+        .when('/userFavoritePOIs', {
+            templateUrl: 'pages/favoritePois.html',
+            controller: 'favoritePoisController',
+            controllerAs: 'ctrl'
+        })
         .otherwise({redirectTo : '/'});
 });
 
@@ -66,59 +66,104 @@ app.service('search', function () {
     }
 });
 
+app.service('pois', function(header){
+
+    let allPOIs = [];
+
+    this.setPOIs = function(http) {
+        http({
+            method: "GET",
+            url: "http://localhost:3000/poi/",
+            headers: header.header
+        })
+            .then(function (res) {
+                allPOIs = res.data;
+                console.log(res.data)
+            }, function (err) {
+                console.log(err);
+            });
+    };
+
+    this.getPois = function(names) {
+        let POINames = [];
+        angular.forEach(allPOIs, function(POI) {
+            POINames.push(POI.name);
+        });
+        let POIs = [];
+        for (let i = 0; i < allPOIs.length; i++) {
+            if (names.includes(POINames[i])) {
+                POIs.push(allPOIs[i]);
+            }
+        }
+
+        // for (let i = POIOrders.length - 1; i > 0; i--) {
+        //     for (let j = 0; j < POIs.length; j++) {
+        //         if (POIOrders[i].poi === POIs[j].name) {
+        //             POIs.unshift(POIs.splice(i, 1));
+        //         }
+        //     }
+        // }
+
+        return POIs;
+    };
+});
+
 
 
 //  main controller
 app.controller('mainController', function ($scope, $http, $window, $rootScope, search) {
 
-   $scope.logout = function(){
-      sessionStorage.removeItem('username');
-      sessionStorage.removeItem('token');
-      $rootScope.rUsername = "Guest";
-      $rootScope.rToken = "";
+    $scope.logout = function(){
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('token');
+        $rootScope.rUsername = "Guest";
+        $rootScope.rToken = "";
 
-      console.log("inside logout");
+        console.log("inside logout");
 
-      $window.location.href = "#!/"
-  };
+        $window.location.href = "#!/"
+    };
 
-  $scope.search = function () {
-      search.setVal($scope.text);
-      $window.location.href = '#!/POIS'
-  };
-   
+    $scope.search = function () {
+        search.setVal($scope.text);
+        $window.location.href = '#!/POIS'
+    };
+
 });
 
-app.service('favoritePoiService', function () {
+app.service('favoritePoiService', function ($rootScope) {
 
     this.favorites = [];
 
     this.addFavorite = function (poi) {
-        // // TODO : MAKE SURE THE time VALUE IS CORRECT
-        // this.favorites.push({username: rUsername, poi: poi.name, personalOrder: poi.personalOrder, time: new Date().toISOString()});
-        this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
-            rank: poi.rank, watched: poi.watched});
+        this.favorites.push({username: $rootScope.rUsername, poi: poi.name, personalOrder: this.favorites.length + 1, time: new Date().toISOString()});
+        // this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
+        //     rank: poi.rank, watched: poi.watched});
     };
 
     this.removeFavorite = function (poi) {
-        angular.forEach(this.favorites, function (favorite, index, obj) {
-            if (favorite.name === poi.name) {
-                obj.splice(index, 1);
+        for (let i = 0; i < this.favorites.length; i++) {
+            if (this.favorites[i].poi === poi.name) {
+                this.favorites.splice(i, 1);
             }
-        });
+        }
     };
 
     this.isFavorite = function (poi) {
-        angular.forEach(this.favorites, function(favorite, index) {
-            if (favorite.name === poi.name) {
-                return 'color: rgb(100, 55, 0)';
+        for (let i = 0; i < this.favorites.length; i++) {
+            if (this.favorites[i].poi === poi.name) {
+                return 'color:darkorange';
             }
-        });
-        return 'color: rgb(0, 0, 0)';
+        }
+        return 'color:black';
     };
 
-    this.getPOITime = function (poi) {
-        // TODO : COMPLETE THE FUNCTION
+    this.getPOITime = function (poiName) {
+        for (let i = 0; i < this.favorites.length; i++) {
+            if (this.favorites[i].poi === poiName) {
+                return this.favorites[i].time;
+            }
+        }
     };
 
     this.changeFavorite = function ($event, item){
@@ -133,5 +178,9 @@ app.service('favoritePoiService', function () {
             jqueryElement.css('color', 'black');
             this.removeFavorite(item);
         }
+    };
+
+    this.setFavorites = function(newFavorites) {
+        this.favorites = newFavorites;
     };
 });

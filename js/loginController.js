@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $http, $window, $rootScope){
+app.controller('loginController', function($scope, $http, $window, $rootScope, pois){
     var ctrl = $scope;
     ctrl.login = function(){
         let cred = {
@@ -20,6 +20,8 @@ app.controller('loginController', function($scope, $http, $window, $rootScope){
         .then(function success(response){
             console.log('logged in!');
             console.log('token: ' + response);
+
+            pois.setPOIs($http);
 
             sessionStorage.setItem('token', response.data);
             sessionStorage.setItem('username', ctrl.username);
