@@ -10,10 +10,8 @@
                         <p><span ng-click="expandPoi()">Name: {{item.name}}</span></p>
                     </a>
                     <p><span>Category: {{item.category}}</span></p>
-                    <p><span>Rank: {{item.rank}}</span></p>
-                    <p><span>Watched: {{item.watched}}</span></p>
                     <p>
-                        <i id="fav_star_in_favorites-{{$index}}" style="color:darkorange" class="fa fa-star"
+                        <i id="fav_star_in_favorites-{{$index}}" style="color:darkorange; cursor: initial" class="fa fa-star"
                            ng-click="changeFavoriteFromFavoriteController($event, item)"></i>
                     </p>
                 </div>
