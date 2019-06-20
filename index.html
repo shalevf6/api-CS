@@ -23,6 +23,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.js"></script>
     <!--      end import      -->
 
+    <!--  Maps API import  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin=""></script>
+
     <link type="text/html" rel="stylesheet" href="resources/css/root.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -88,12 +96,12 @@
             </ul>
             
 
-            <div class="align-self-end">
+<!--            <div class="align-self-end">-->
                 <form class="form-inline my-2 my-lg-0" ng-show="rToken">
                     <input class="form-control mr-sm-2" ng-model="text" id="searchVal" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" ng-click="search()">Search</button>
                 </form>
-            </div>
+<!--            </div>-->
 
 
 
@@ -103,6 +111,7 @@
     <br><br><br><br>
 
     <ng-view></ng-view>
+
 
 </body>
 

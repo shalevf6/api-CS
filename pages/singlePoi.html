@@ -30,57 +30,66 @@
 
         .starrating > input:hover ~ label
         { color: #ffca08 ;  } /* Set yellow color when star hover */
+
+        .maps {
+            height: 100%;
+        }
     </style>
 </head>
 <body>
 
 <!--text-center style="width: 18rem;"-->
-<div class="row  justify-content-md-center" ng-show="ready">
-
-    <div class="card w-75" >
-        <img class="card-img-top mx-auto d-block" style="max-height: 50%;" ng-src="{{poi.picture}}" alt="Card image cap">
-        <div class="card-header text-center">
-            <h4 class="card-title font-weight-bold">{{poi.name}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">New York City</h6>
-        </div>
-        <div class="card-body">
-
-            <div class="row">
-                <div class="col">
-                    <p class="card-text">
-                        <span><h6>Category: </h6> {{poi.category}}</span>
-                    </p>
-                    <p class="card-text">
-                        <span><h6>Description: </h6> {{poi.description}}</span>
-                    </p>
-                    <p class="card-text">
-                        <span><h6>Rank: </h6> {{poi.rank * 20}}%</span>
-                    </p>
-                    <p class="card-text">
-                        <span><h6>Watched By: </h6> {{poi.watched + 1}}</span>
-                    </p>
-                </div>
-
-                <div class="col">
-                    lala
-                </div>
-
-            </div>
-
-            <div class="card-header text-left">
-                <h5 class="mb-0 font-weight-italic font-italic"><u>Latest Reviews</u></h5>
+<div class="container">
+    <div class="row  justify-content-md-center" ng-show="ready">
+        <div class="card w-75" >
+            <img class="card-img-top mx-auto d-block" style="max-height: 50%;" ng-src="{{poi.picture}}" alt="Card image cap">
+            <div class="card-header text-center">
+                <h4 class="card-title font-weight-bold">{{poi.name}}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">New York City</h6>
             </div>
             <div class="card-body">
-                <blockquote class="blockquote border border-info rounded" style="padding: 4px;" ng-repeat="item in reviews">
-                    <p><span class="font-italic">Rank:</span> {{item.rank}}</p>
-                    <p>{{item.review}}</p>
-                    <footer class="blockquote-footer">Review by <cite title="Source Title"><u>{{item.username}}</u></cite> ,  {{item.time}}</footer>
-                </blockquote>
-                <blockquote class="blockquote border border-info rounded text-center" style="padding: 4px;" ng-show="!reviews">
-                    <p style="margin-top: 16px">Be the first to review this point!</p>
-                </blockquote>
-                <button ng-show="loggedIn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Add a review</button>
-                <button ng-show="!loggedIn" disabled class="btn btn-primary" >Log in to add a review</button>
+
+                <div class="row">
+                    <div class="col">
+                        <p class="card-text">
+                            <span><h6>Category: </h6> {{poi.category}}</span>
+                        </p>
+                        <p class="card-text">
+                            <span><h6>Description: </h6> {{poi.description}}</span>
+                        </p>
+                        <p class="card-text">
+                            <span><h6>Rank: </h6> {{poi.rank * 20}}%</span>
+                        </p>
+                        <p class="card-text">
+                            <span><h6>Watched By: </h6> {{poi.watched + 1}}</span>
+                        </p>
+                    </div>
+
+                    <div class="col">
+                        <div id="mapid" class="maps" ng-init="initMap23()">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-header text-left">
+                    <h5 class="mb-0 font-weight-italic font-italic"><u>Latest Reviews</u></h5>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote border border-info rounded" style="padding: 4px;" ng-repeat="item in reviews">
+                        <p><span class="font-italic">Rank:</span> {{item.rank}}</p>
+                        <p>{{item.review}}</p>
+                        <footer class="blockquote-footer">Review by <cite title="Source Title"><u>{{item.username}}</u></cite> ,  {{item.time}}</footer>
+                    </blockquote>
+                    <blockquote class="blockquote border border-info rounded text-center" style="padding: 4px;" ng-show="!reviews">
+                        <p style="margin-top: 16px">Be the first to review this point!</p>
+                    </blockquote>
+
+                    <button ng-show="loggedIn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Add a review</button>
+                    <button ng-show="!loggedIn" type="button" disabled class="btn btn-danger" >Login to add a review</button>
+
+                </div>
             </div>
         </div>
     </div>
