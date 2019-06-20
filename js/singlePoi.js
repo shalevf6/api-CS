@@ -8,8 +8,17 @@ var locations = {
     "Chrysler Building": {x:40.751640, y: -73.975389 },
     "Cielo": {x:40.739811, y: -74.007056 },
     "Empire State Building": {x:40.748577, y: -73.985670 },
-    "Good Room": {x:40.726932, y: -73.952943 },
-
+    "House of Yes": {x:40.706801, y:  -73.923611 },
+    "Intrepid Sea, Air and Space Museum": {x:40.764504, y:  -73.999545 },
+    "Le Coucou": {x:40.719128, y: -74.000239 },
+    "Masa": {x:40.768560, y: -73.983027 },
+    "Museum of Modern Art": {x:40.743731, y: -73.932405 },
+    "Nowadays": {x:40.692508, y: -73.901569 },
+    "Statue of Liberty": {x:40.689241, y: -74.044552 },
+    "The Metropolitan Museum of Art": {x:40.779369, y: -73.963482 },
+    "The National 9-11 Memorial and Museum": {x:40.711550, y: -74.013333 },
+    "Via Carota": {x:40.733139, y: -74.003612 },
+    "Good Room": {x:40.726929, y: -73.952897 },
 };
 
 app

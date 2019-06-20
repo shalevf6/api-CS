@@ -58,10 +58,10 @@
                             <span><h6>Description: </h6> {{poi.description}}</span>
                         </p>
                         <p class="card-text">
-                            <span><h6>Rank: </h6> {{poi.rank * 20}}%</span>
+                            <span><h6>Rank: </h6> {{(poi.rank * 20) | number:0}}%</span>
                         </p>
                         <p class="card-text">
-                            <span><h6>Watched By: </h6> {{poi.watched + 1}}</span>
+                            <span><h6>Watched By: </h6>Over {{poi.watched + 1}} people</span>
                         </p>
                     </div>
 

@@ -21,7 +21,7 @@ app
         })
             .then(function (res) {
                console.log(res);
-               $scope.allPoi = res.data;
+               $scope.allPoi = res.data.sort((a,b) => (a.rank<b.rank) ? 1 : (a.rank>b.rank ? -1 : 0));
                $http({
                     method: "GET",
                     url: "http://localhost:3000/categories",

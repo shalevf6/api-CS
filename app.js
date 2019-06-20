@@ -3,7 +3,7 @@ var app = angular.module('myApp', ['ngRoute', 'as.sortable']);
 // setting root variables
 app.run(function ($rootScope) {
    $rootScope.rUsername = sessionStorage.getItem('username') || "Guest";
-   $rootScope.rToken = sessionStorage.getItem('token');;
+   $rootScope.rToken = sessionStorage.getItem('token');
 });
 
 //  routing configurations
