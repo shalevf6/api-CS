@@ -1,7 +1,5 @@
 app
     .controller('poisController', function ($scope, $http, $window, $rootScope, header, search) {
-        // if (!$rootScope.rToken) // if a user refresh the page.. should change
-        //     $window.location.href = "#!/";
 
         $scope.results = {};
         $scope.size = -1;

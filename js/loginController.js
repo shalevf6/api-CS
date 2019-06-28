@@ -1,6 +1,11 @@
-app.controller('loginController', function($scope, $http, $window, $rootScope){
-    var ctrl = $scope;
-    ctrl.login = function(){
+app.controller('loginController', function($scope, $http, $window, $rootScope, header){
+    $scope.forgot = false;
+    $scope.showAnswer = false;
+    $scope.forgotUsername = "";
+    $scope.forgotQuestions = [];
+    $scope.forgotAnswer = "";
+
+    $scope.login = function(){
         let cred = {
             username : $scope.username,
             password : $scope.password
@@ -22,7 +27,7 @@ app.controller('loginController', function($scope, $http, $window, $rootScope){
             console.log('token: ' + response);
 
             sessionStorage.setItem('token', response.data);
-            sessionStorage.setItem('username', ctrl.username);
+            sessionStorage.setItem('username', $scope.username);
 
             $rootScope.rUsername = $scope.username;
             $rootScope.rToken = response.data;
@@ -32,6 +37,53 @@ app.controller('loginController', function($scope, $http, $window, $rootScope){
             console.log("error! info: " + err);
             alert(JSON.stringify(err))
         })
-    }
+    };
+
+
+    $scope.setForgot = function (update) {
+        $scope.forgot = update;
+        $scope.showAnswer = $scope.forgotQuestions.length;
+        if (update){
+            $scope.forgotUsername = $scope.username;
+        }
+    };
+
+    $scope.getQuest = function () {
+        $http({
+            method: "GET",
+                url: "http://localhost:3000/questions",
+            headers: header.header
+        })
+            .then(function (response) {
+                $scope.forgotQuestions = response.data;
+                $scope.showAnswer = true;
+            }, function (err) {
+                alert('Oh no...\n' + 'Seems like ' + err.data.toString());
+            })
+    };
+
+    $scope.resetPass = function(){
+        let quest = $('#forgotQuestions').val();
+        let answer = $scope.forgotAnswer;
+
+        $http({
+            method: "POST",
+            url: "http://localhost:3000/restorePassword",
+            headers: header.header,
+            data: {
+                username: $scope.forgotUsername,
+                question: quest,
+                answer: answer
+            }
+        })
+            .then(function (response) {
+                alert('Your password is:\n' + "'" + response.data[0].password + "'");
+                $scope.forgotAnswer = "";
+                $scope.setForgot(false);
+            }, function (err) {
+                alert('Oh no...\n' + 'Seems like ' + err.data.toString());
+            })
+    };
+
 
 });
