@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $http, $window, $rootScope, header){
+app.controller('loginController', function($scope, $http, $window, $rootScope, header, pois, favoritePoiService){
     $scope.forgot = false;
     $scope.showAnswer = false;
     $scope.forgotUsername = "";
@@ -38,7 +38,7 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, h
         },
         function error(err){
             console.log("error! info: " + err);
-            alert(JSON.stringify(err))
+            alert(JSON.stringify(err));
         })
     };
 
