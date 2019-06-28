@@ -32,7 +32,11 @@ app
             headers: header.header
         }).then(function (response) {
                 console.log(response);
-                $scope.poi = response.data[0];
+                let tempPoi = response.data[0];
+                let poiColor = favoritePoiService.isFavorite(tempPoi);
+                $scope.poi = {name: tempPoi.name, picture: tempPoi.picture, category: tempPoi.category, description: tempPoi.description,
+                    watched: tempPoi.watched, rank: tempPoi.rank, color: poiColor};
+                console.log($scope.poi);
 
                 $http({
                     method: 'GET',
@@ -107,18 +111,7 @@ app
                 });
         };
 
-
-        // ---------- API TEST
-        $scope.initMap23 = function () {
-            const mymap = L.map('mapid').setView([locations[name].x, locations[name].y], 16);
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox.streets',
-                accessToken: 'pk.eyJ1IjoiaGFna2FsIiwiYSI6ImNqeDNsN2JvNjAwNzA0YW1yYnRyY2xrdWoifQ.aPOzAIe78JUEzYxdaq5dcg'
-            }).addTo(mymap);
-            const marker = L.marker([locations[name].x, locations[name].y]).addTo(mymap);
-            marker.bindPopup("<div style='text-align: center'><b>I'm here!</b><br>" + name + "</div>").openPopup();
+        $scope.changeFavoriteFromSinglePoiController = function($event, item) {
+            favoritePoiService.changeFavorite($event,item);
         };
-
     });

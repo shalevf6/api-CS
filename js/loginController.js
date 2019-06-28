@@ -29,6 +29,9 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, h
             sessionStorage.setItem('token', response.data);
             sessionStorage.setItem('username', $scope.username);
 
+            pois.setPOIs($http);
+            favoritePoiService.initFavoritePOIs($http);
+
             $rootScope.rUsername = $scope.username;
             $rootScope.rToken = response.data;
             $window.location.href = "#!/welcome"

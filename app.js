@@ -66,59 +66,113 @@ app.service('search', function () {
     }
 });
 
+app.service('pois', function(header){
+
+    let allPOIs = [];
+
+    this.setPOIs = function(http) {
+        http({
+            method: "GET",
+            url: "http://localhost:3000/poi/",
+            headers: header.header
+        })
+            .then(function (res) {
+                allPOIs = res.data;
+                console.log(res.data)
+            }, function (err) {
+                console.log(err);
+            });
+    };
+
+    this.getPois = function(names) {
+        let POINames = [];
+        angular.forEach(allPOIs, function(POI) {
+            POINames.push(POI.name);
+        });
+        let POIs = [];
+        for (let i = 0; i < allPOIs.length; i++) {
+            if (names.includes(POINames[i])) {
+                POIs.push(allPOIs[i]);
+            }
+        }
+        return POIs;
+    };
+});
+
 
 
 //  main controller
-app.controller('mainController', function ($scope, $http, $window, $rootScope, search) {
+app.controller('mainController', function ($scope, $http, $window, $rootScope, search, favoritePoiService) {
 
-   $scope.logout = function(){
-      sessionStorage.removeItem('username');
-      sessionStorage.removeItem('token');
-      $rootScope.rUsername = "Guest";
-      $rootScope.rToken = "";
+    $scope.logout = function(){
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('token');
+        $rootScope.rUsername = "Guest";
+        $rootScope.rToken = "";
 
-      console.log("inside logout");
+        console.log("inside logout");
 
-      $window.location.href = "#!/"
-  };
+        $window.location.href = "#!/";
 
-  $scope.search = function () {
-      search.setVal($scope.text);
-      $window.location.href = '#!/POIS'
-  };
-   
+        favoritePoiService.resetFavorites();
+    };
+
+    $scope.search = function () {
+        search.setVal($scope.text);
+        $window.location.href = '#!/POIS'
+    };
+
 });
 
-app.service('favoritePoiService', function () {
+app.service('favoritePoiService', function ($rootScope) {
 
-    this.favorites = [];
+    let favorites = [];
+
+    this.initFavoritePOIs = function(http) {
+        http({
+            method : "GET",
+            url : 'http://localhost:3000/private/favoritePoi',
+            headers: {'x-auth-token': sessionStorage.getItem('token')}
+        })
+            .then(function (response) {
+                favorites = response.data;
+                console.log("Favorites successfully retrieved")
+                console.log(response.data)
+            }, function (err) {
+                console.log("Unable to retrieve favorites")
+                console.log(err);
+            });
+    };
 
     this.addFavorite = function (poi) {
-        // // TODO : MAKE SURE THE time VALUE IS CORRECT
-        // this.favorites.push({username: rUsername, poi: poi.name, personalOrder: poi.personalOrder, time: new Date().toISOString()});
-        this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
-            rank: poi.rank, watched: poi.watched});
+        favorites.push({username: $rootScope.rUsername, poi: poi.name, personalOrder: favorites.length + 1, time: new Date().toISOString()});
+        // this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
+        //     rank: poi.rank, watched: poi.watched});
     };
 
     this.removeFavorite = function (poi) {
-        angular.forEach(this.favorites, function (favorite, index, obj) {
-            if (favorite.name === poi.name) {
-                obj.splice(index, 1);
+        for (let i = 0; i < favorites.length; i++) {
+            if (favorites[i].poi === poi.name) {
+                favorites.splice(i, 1);
             }
-        });
+        }
     };
 
     this.isFavorite = function (poi) {
-        angular.forEach(this.favorites, function(favorite, index) {
-            if (favorite.name === poi.name) {
-                return 'color: rgb(100, 55, 0)';
+        for (let i = 0; i < favorites.length; i++) {
+            if (favorites[i].poi === poi.name) {
+                return 'darkorange';
             }
-        });
-        return 'color: rgb(0, 0, 0)';
+        }
+        return 'black';
     };
 
-    this.getPOITime = function (poi) {
-        // TODO : COMPLETE THE FUNCTION
+    this.getPOITime = function (poiName) {
+        for (let i = 0; i < favorites.length; i++) {
+            if (favorites[i].poi === poiName) {
+                return favorites[i].time;
+            }
+        }
     };
 
     this.changeFavorite = function ($event, item){
@@ -133,5 +187,17 @@ app.service('favoritePoiService', function () {
             jqueryElement.css('color', 'black');
             this.removeFavorite(item);
         }
+    };
+
+    this.setFavorites = function(newFavorites) {
+        favorites = newFavorites;
+    };
+
+    this.getFavorites = function() {
+        return favorites;
+    };
+
+    this.resetFavorites = function() {
+        favorites = [];
     };
 });
