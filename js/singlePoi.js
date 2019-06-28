@@ -1,5 +1,5 @@
 app
-    .controller('singlePoiController', function ($scope, $http, $window, $rootScope, $routeParams, header, search) {
+    .controller('singlePoiController', function ($scope, $http, $window, $rootScope, $routeParams, header, search, favoritePoiService) {
 
         /*
         needs to check if user is logged in
@@ -13,27 +13,30 @@ app
             url: 'http://localhost:3000/poi/' + name,
             headers: header.header
         }).then(function (response) {
+            console.log(response);
+            let tempPoi = response.data[0];
+            let poiColor = favoritePoiService.isFavorite(tempPoi);
+            $scope.poi = {name: tempPoi.name, picture: tempPoi.picture, category: tempPoi.category, description: tempPoi.description,
+                watched: tempPoi.watched, rank: tempPoi.rank, color: poiColor};
+            console.log($scope.poi);
+            $http({
+                method: 'GET',
+                url: 'http://localhost:3000/latestReview/' + name,
+                headers: header.header
+            }).then(function (response) {
                 console.log(response);
-                $scope.poi = response.data[0];
+                if (response.data.length){
+                    $scope.reviews = response.data;
+                    $scope.reviews.forEach(item => {
+                        item.time = $scope.convertToDays(item.time)
+                    });
+                }
 
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:3000/latestReview/' + name,
-                    headers: header.header
-                }).then(function (response) {
-                    console.log(response);
-                    if (response.data.length){
-                        $scope.reviews = response.data;
-                        $scope.reviews.forEach(item => {
-                            item.time = $scope.convertToDays(item.time)
-                        });
-                    }
-
-                    $scope.ready = true;
-                })
-            }, function (err) {
-                console.log(err)
-            });
+                $scope.ready = true;
+            })
+        }, function (err) {
+            console.log(err)
+        });
 
         $http({
             method: 'PATCH',
@@ -87,5 +90,9 @@ app
                     console.log(err);
                     alert(err.data + "\n\n" + "Notice: you cant post 2 reviews for the same point")
                 });
-        }
+        };
+
+        $scope.changeFavoriteFromSinglePoiController = function($event, item) {
+            favoritePoiService.changeFavorite($event,item);
+        };
     });

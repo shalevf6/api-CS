@@ -1,5 +1,5 @@
 app
-    .controller('favoritePoisController', ['$scope','favoritePoiService', 'pois', 'header',
+    .controller('favoritePoisController', ['$scope','favoritePoiService', 'pois', 'header', '$http',
         function ( $scope, favoritePoiService, pois, header, $http) {
 
             $scope.intro = "undef";
@@ -16,11 +16,11 @@ app
                 }};
 
             $scope.uploadToServer = function() {
-                $scope.http({
+                $http({
                     method: "PUT",
                     url: 'http://localhost:3000/private/saveFavorites',
                     headers: {'x-auth-token': sessionStorage.getItem('token')},
-                    data: {'favorite_poi': $scope.getSortedElements()}
+                    data: {'favorite_poi': favoritePoiService.getFavorites()}
                 })
                     .then(function (response) {
                         console.log(response.data);
