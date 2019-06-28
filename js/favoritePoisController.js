@@ -1,5 +1,5 @@
 app
-    .controller('favoritePoisController', ['$scope','favoritePoiService', 'pois', '$rootScope', 'header',
+    .controller('favoritePoisController', ['$scope','favoritePoiService', 'pois', 'header',
         function ( $scope, favoritePoiService, pois, header, $http) {
 
             $scope.intro = "undef";
@@ -37,7 +37,7 @@ app
                 while (i - 1 < $scope.sortableArray.length) {
                     let name = $scope.sortableArray[i-1].name;
                     let time = favoritePoiService.getPOITime(name);
-                    listValues.push({username: $rootScope.rUsername, poi: name, personalOrder: i, time: time});
+                    listValues.push({username: sessionStorage.getItem('username'), poi: name, personalOrder: i, time: time});
                     i++;
                 }
                 console.log(listValues);
