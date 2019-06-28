@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $http, $window, $rootScope, pois){
+app.controller('loginController', function($scope, $http, $window, $rootScope, pois, favoritePoiService){
     var ctrl = $scope;
     ctrl.login = function(){
         let cred = {
@@ -13,27 +13,28 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, p
                 "Access-Control-Allow-Origin" : "*"
             },
             data : cred
-            
+
         };
         // ctrl.password = request.headers
         $http(request)
-        .then(function success(response){
-            console.log('logged in!');
-            console.log('token: ' + response);
+            .then(function success(response){
+                    console.log('logged in!');
+                    console.log('token: ' + response);
 
-            pois.setPOIs($http);
+                    sessionStorage.setItem('token', response.data);
+                    sessionStorage.setItem('username', ctrl.username);
 
-            sessionStorage.setItem('token', response.data);
-            sessionStorage.setItem('username', ctrl.username);
+                    pois.setPOIs($http);
+                    favoritePoiService.initFavoritePOIs($http);
 
-            $rootScope.rUsername = $scope.username;
-            $rootScope.rToken = response.data;
-            $window.location.href = "#!/welcome"
-        },
-        function error(err){
-            console.log("error! info: " + err);
-            alert(JSON.stringify(err))
-        })
+                    $rootScope.rUsername = $scope.username;
+                    $rootScope.rToken = response.data;
+                    $window.location.href = "#!/welcome"
+                },
+                function error(err){
+                    console.log("error! info: " + err);
+                    alert(JSON.stringify(err))
+                })
     }
 
 });

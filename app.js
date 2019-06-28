@@ -102,7 +102,7 @@ app.service('pois', function(header){
 
 
 //  main controller
-app.controller('mainController', function ($scope, $http, $window, $rootScope, search) {
+app.controller('mainController', function ($scope, $http, $window, $rootScope, search, favoritePoiService) {
 
     $scope.logout = function(){
         sessionStorage.removeItem('username');
@@ -112,7 +112,9 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
 
         console.log("inside logout");
 
-        $window.location.href = "#!/"
+        $window.location.href = "#!/";
+
+        favoritePoiService.resetFavorites();
     };
 
     $scope.search = function () {
@@ -122,24 +124,25 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
 
 });
 
-app.service('favoritePoiService', function ($rootScope, $http) {
+app.service('favoritePoiService', function ($rootScope) {
 
     let favorites = [];
-    // this.favorites = [];
 
-    $http({
-        method : "GET",
-        url : 'http://localhost:3000/private/favoritePoi',
-        headers: {'x-auth-token': sessionStorage.getItem('token')}
-    })
-        .then(function (response) {
-            favorites = response.data;
-            console.log("Favorites successfully retrieved")
-            console.log(response.data)
-        }, function (err) {
-            console.log("Unable to retrieve favorites")
-            console.log(err);
-        });
+    this.initFavoritePOIs = function(http) {
+        http({
+            method : "GET",
+            url : 'http://localhost:3000/private/favoritePoi',
+            headers: {'x-auth-token': sessionStorage.getItem('token')}
+        })
+            .then(function (response) {
+                favorites = response.data;
+                console.log("Favorites successfully retrieved")
+                console.log(response.data)
+            }, function (err) {
+                console.log("Unable to retrieve favorites")
+                console.log(err);
+            });
+    };
 
     this.addFavorite = function (poi) {
         favorites.push({username: $rootScope.rUsername, poi: poi.name, personalOrder: favorites.length + 1, time: new Date().toISOString()});
@@ -192,5 +195,9 @@ app.service('favoritePoiService', function ($rootScope, $http) {
 
     this.getFavorites = function() {
         return favorites;
-    }
+    };
+
+    this.resetFavorites = function() {
+        favorites = [];
+    };
 });

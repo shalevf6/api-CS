@@ -26,7 +26,7 @@
             <p><span>Rank: {{item.rank}}</span></p>
             <p><span>Watched: {{item.watched}}</span></p>
             <p>
-                <i id="fav_star_recommended-{{$index}}" class="fa fa-star" ng-style="{color: item.color}"
+                <i id="fav_star_recommended-{{$index}}" style="cursor: pointer" class="fa fa-star" ng-style="{color: item.color}"
                    ng-click="changeFavoriteFromWelcomeController($event, item)"></i>
             </p>
         </div>
@@ -53,8 +53,8 @@
             <p><span>Rank: {{item.rank}}</span></p>
             <p><span>Watched: {{item.watched}}</span></p>
             <p>
-                <i id="fav_star_favorite-{{$index}}" class="fa fa-star" ng-style="{color: item.color}"
-                   ng-click="changeFavorite($event)"></i>
+                <i id="fav_star_favorite-{{$index}}" style="cursor: pointer" class="fa fa-star" ng-style="{color: item.color}"
+                   ng-click="changeFavoriteFromWelcomeController($event, item)"></i>
             </p>
         </div>
     </div>

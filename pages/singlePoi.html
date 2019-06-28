@@ -59,6 +59,13 @@
                     <p class="card-text">
                         <span><h6>Watched By: </h6> {{poi.watched + 1}}</span>
                     </p>
+                    <p ng-show="loggedIn">
+                        <span><h6>Add / Remove From Favorites: </h6>
+                        <i id="fav_star_favorite_single_poi" style="cursor: pointer" class="fa fa-star" ng-style="{color: poi.color}"
+                           ng-click="changeFavoriteFromSinglePoiController($event, poi)">
+                        </i>
+                        </span>
+                    </p>
                 </div>
 
                 <div class="col">
