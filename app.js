@@ -95,7 +95,6 @@ app.service('pois', function(header){
                 POIs.push(allPOIs[i]);
             }
         }
-
         return POIs;
     };
 });
@@ -123,27 +122,42 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
 
 });
 
-app.service('favoritePoiService', function ($rootScope) {
+app.service('favoritePoiService', function ($rootScope, $http) {
 
-    this.favorites = [];
+    let favorites = [];
+    // this.favorites = [];
+
+    $http({
+        method : "GET",
+        url : 'http://localhost:3000/private/favoritePoi',
+        headers: {'x-auth-token': sessionStorage.getItem('token')}
+    })
+        .then(function (response) {
+            favorites = response.data;
+            console.log("Favorites successfully retrieved")
+            console.log(response.data)
+        }, function (err) {
+            console.log("Unable to retrieve favorites")
+            console.log(err);
+        });
 
     this.addFavorite = function (poi) {
-        this.favorites.push({username: $rootScope.rUsername, poi: poi.name, personalOrder: this.favorites.length + 1, time: new Date().toISOString()});
+        favorites.push({username: $rootScope.rUsername, poi: poi.name, personalOrder: favorites.length + 1, time: new Date().toISOString()});
         // this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
         //     rank: poi.rank, watched: poi.watched});
     };
 
     this.removeFavorite = function (poi) {
-        for (let i = 0; i < this.favorites.length; i++) {
-            if (this.favorites[i].poi === poi.name) {
-                this.favorites.splice(i, 1);
+        for (let i = 0; i < favorites.length; i++) {
+            if (favorites[i].poi === poi.name) {
+                favorites.splice(i, 1);
             }
         }
     };
 
     this.isFavorite = function (poi) {
-        for (let i = 0; i < this.favorites.length; i++) {
-            if (this.favorites[i].poi === poi.name) {
+        for (let i = 0; i < favorites.length; i++) {
+            if (favorites[i].poi === poi.name) {
                 return 'darkorange';
             }
         }
@@ -151,9 +165,9 @@ app.service('favoritePoiService', function ($rootScope) {
     };
 
     this.getPOITime = function (poiName) {
-        for (let i = 0; i < this.favorites.length; i++) {
-            if (this.favorites[i].poi === poiName) {
-                return this.favorites[i].time;
+        for (let i = 0; i < favorites.length; i++) {
+            if (favorites[i].poi === poiName) {
+                return favorites[i].time;
             }
         }
     };
@@ -173,6 +187,10 @@ app.service('favoritePoiService', function ($rootScope) {
     };
 
     this.setFavorites = function(newFavorites) {
-        this.favorites = newFavorites;
+        favorites = newFavorites;
     };
+
+    this.getFavorites = function() {
+        return favorites;
+    }
 });
