@@ -122,6 +122,10 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
         $window.location.href = '#!/POIS'
     };
 
+    $scope.navToggle = function () {
+        $('#navItems')
+    }
+
 });
 
 app.service('favoritePoiService', function ($rootScope) {

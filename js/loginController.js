@@ -88,5 +88,4 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, h
             })
     };
 
-
 });

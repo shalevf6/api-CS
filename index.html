@@ -11,11 +11,12 @@
     <!--      end import      -->
 
     <!--    import of BOOSTRAP   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <!--      end import    -->
 
     <!--    import of Angular    -->
@@ -38,46 +39,48 @@
 
     <!--  Sortable import  -->
     <link rel="stylesheet" type="text/css" href="resources/sortable/ng-sortable.css">
+
 </head>
 
 
 <body ng-app="myApp">
 
-    <!--    load app    -->
-    <script src="app.js"></script>
+<!--    load app    -->
+<script src="app.js"></script>
 
-    <!--    load more js files   TODO : FOR SORTABLE  -->
-    <script src="resources/sortable/ng-sortable.js"></script>
+<!--    load more js files   TODO : FOR SORTABLE  -->
+<script src="resources/sortable/ng-sortable.js"></script>
 
-    <!--    load controllers    -->
-    <script src="js/registerController.js"></script>
-    <script src="js/loginController.js"></script>
-    <script src="js/welcome.js"></script>
-    <script src="js/entranceController.js"></script>
-    <script src="js/poisController.js"></script>
-    <script src="js/favoritePoisController.js"></script>
-    <script src="js/singlePoi.js"></script>
+<!--    load controllers    -->
+<script src="js/registerController.js"></script>
+<script src="js/loginController.js"></script>
+<script src="js/welcome.js"></script>
+<script src="js/entranceController.js"></script>
+<script src="js/poisController.js"></script>
+<script src="js/favoritePoisController.js"></script>
+<script src="js/singlePoi.js"></script>
 
 
 
-    <!--     Website     -->
+<!--     Website     -->
 
-    <!--    Nav Bar     -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" ng-controller="mainController">
-        <a class="navbar-brand" href="#">
-            <img class="nav-img" src="resources/images/ny-logo1.png" height="55px" width="65px" alt="NYC">
-            New York
-        </a>
-        <div class="nav-link">
-            Hello, {{rUsername}}
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+<!--    Nav Bar     -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" ng-controller="mainController">
+    <a class="navbar-brand" href="#">
+        <img class="nav-img" src="resources/images/ny-logo1.png" height="55px" width="65px" alt="NYC">
+        New York
+    </a>
+    <div class="nav-link">
+        Hello, {{rUsername}}
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <span class="navbar-toggler-icon" ></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+    <div class="collapse navbar-collapse order-3" id="navbarNav">
+        <div class="col p-0">
+            <ul class="navbar-nav" id="navItems">
                 <li class="nav-item active" ng-show="!rToken">
                     <a class="nav-link" href="#!/login">Login</a>
                 </li>
@@ -97,24 +100,22 @@
                     <a class="nav-link" href="#!/POIS">Explore NYC</a>
                 </li>
             </ul>
-            
-
-<!--            <div class="align-self-end">-->
-                <form class="form-inline my-2 my-lg-0" ng-show="rToken">
-                    <input class="form-control mr-sm-2" ng-model="text"
-                           ng-disabled="$window.location.href.includes('POIS')" id="searchVal" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" ng-click="search()">Search</button>
-                </form>
-<!--            </div>-->
-
-
-
         </div>
-    </nav>
 
-    <br><br><br><br>
+        <div class="float-right mr-1">
+            <form class="form-inline my-2 my-lg-0" ng-show="rToken">
+                <input class="form-control mr-sm-2" ng-model="text"
+                       ng-disabled="$window.location.href.includes('POIS')" id="searchVal" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" ng-click="search()">Search</button>
+            </form>
+        </div>
 
-    <ng-view></ng-view>
+    </div>
+</nav>
+
+<br><br><br><br>
+
+<ng-view></ng-view>
 
 
 </body>

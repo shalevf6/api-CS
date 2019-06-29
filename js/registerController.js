@@ -1,5 +1,6 @@
 app.controller('registerController', function($scope, $http, $window){
 
+    $scope.emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     $scope.user = {
         username :"",
         password : "",
@@ -10,7 +11,7 @@ app.controller('registerController', function($scope, $http, $window){
         email : " ",
         favoriteCat : [],
         questions : [{quest: "",ans : "",quest1:"",ans1:""},]
-    }
+    };
     let request = {
         method: 'GET',
         url : 'http://localhost:3000/categories',
@@ -28,7 +29,7 @@ app.controller('registerController', function($scope, $http, $window){
             function error(err){
                 console.log("error! info: " + err);
                 $scope.username = err
-            })
+            });
 
     let request3 = {
         method: 'GET',
@@ -47,7 +48,7 @@ app.controller('registerController', function($scope, $http, $window){
             function error(err){
                 console.log("error! info: " + err);
                 $scope.username = err
-            })
+            });
 
 
     let request1 = {
@@ -67,7 +68,7 @@ app.controller('registerController', function($scope, $http, $window){
             function error(err){
                 console.log("error! info: " + err);
                 $scope.username = err
-            })
+            });
 
 
     let request2 = {
@@ -87,7 +88,7 @@ app.controller('registerController', function($scope, $http, $window){
             function error(err){
                 console.log("error! info: " + err);
                 $scope.username = err
-            })
+            });
 
 
     $scope.master = {};
@@ -98,7 +99,7 @@ app.controller('registerController', function($scope, $http, $window){
     };
 
     $scope.reset();
-    $scope.update = function(user) {
+    $scope.register = function(user) {
         $scope.master = angular.copy(user);
         var ok =true;
         var categories = $scope.master.favoriteCat;
@@ -111,37 +112,33 @@ app.controller('registerController', function($scope, $http, $window){
                     if (category === categories[1] || category === categories[2] || category === categories[3]) {
                         alert("Cant choose two similar categories ");
                         ok = false;
-                        reset();
                     }
                 } else if (index === "1") {
                     if (category === categories[0] || category === categories[2] || category === categories[3]) {
                         alert("Cant choose two similar categories ");
                         ok = false;
-                        reset();
                     }
                 } else if (index === "2") {
                     if (category === categories[1] || category === categories[0] || category === categories[3]) {
                         alert("Cant choose two similar categories ");
                         ok = false;
-                        reset();
                     }
                 }
-                if (index === "3") {
+                else if (index === "3") {
                     if (category === categories[1] || category === categories[2] || category === categories[0]) {
                         alert("Cant choose two similar categories ");
                         ok = false;
-                        reset();
                     }
-                } else {
+                }
+                if (ok) {
                     catTosend.push(category);
                     count++
                 }
             }
-})
+        });
         console.log(count);
         if (count < 2) {
-            alert("YOU MUST CHOOSE 2 OR MORE CATEGORIES")
-            reset();
+            alert("YOU MUST CHOOSE 2 OR MORE CATEGORIES");
             ok = false;
         }
         else if(ok) {
@@ -168,14 +165,13 @@ app.controller('registerController', function($scope, $http, $window){
                 };
                 $http(request2)
                     .then(function success(response) {
-                           alert("user"+ user.username + " singed successfully!")
+                            alert(user.username + " you have registered successfully!");
                             $window.location.href = "#!/login"
 
                         },
                         function error(err) {
                             console.log("error! info: " + err);
                             alert(err.data.toString());
-                            $scope.username = err
                         })
             }
             if (count === 3) {
@@ -201,13 +197,12 @@ app.controller('registerController', function($scope, $http, $window){
                 };
                 $http(request2)
                     .then(function success(response) {
-                            alert("user"+ user.username + " singed successfully!")
+                            alert(user.username + " you have registered successfully!");
                             $window.location.href = "#!/login"
                         },
                         function error(err) {
                             console.log("error! info: " + err);
                             alert(err);
-                            $scope.username = err
                         })
             }
             if (count === 4) {
@@ -232,26 +227,42 @@ app.controller('registerController', function($scope, $http, $window){
                 };
                 $http(request2)
                     .then(function success(response) {
-                            alert("user"+ user.username + " singed successfully!")
+                            alert(user.username + " you have registered successfully!");
                             $window.location.href = "#!/login"
                         },
                         function error(err) {
                             console.log("error! info: " + err);
                             alert(err);
-                            $scope.username = err
                         })
             }
         }
     };
-    $scope.submitForm = function(isValid) {
+    $scope.submitForm = function(isValid, event) {
 
         let email = $scope.user.email;
         isValid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             .test(email);
 
+        let tmp = $scope.user.questions;
+        let validQuest = $scope.user.questions ? (Object.keys($scope.user.questions).length >= 4) : false;
+        let differentQuest = tmp.quest !== tmp.quest1;
+
+
         // check to make sure the form is completely valid
-        if (isValid) {
+        if (isValid && validQuest && differentQuest) {
+            $scope.register($scope.user)
+        }
+        else{
+            let str = !isValid ? "Invalid Email.\nPlease insert a valid Email!\n" : "";
+            !validQuest ? str+="Please set 2 security questions" : str;
+            !differentQuest ? str+="Security questions must be different" : str;
+            alert(str)
         }
 
+        event.preventDefault();
     };
+
+    $scope.resetForm = function () {
+        $('#regForm').trigger('reset');
+    }
 });
