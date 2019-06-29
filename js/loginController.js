@@ -38,7 +38,15 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, h
                 },
                 function error(err){
                     console.log("error! info: " + err);
-                    alert(JSON.stringify(err));
+                    let str = "";
+                    switch (err.status) {
+                        case 401:
+                            str = "Username or Password are incorrect";
+                            break;
+                        default:
+                            str = "Some error occurred, please try again later";
+                    }
+                    alert(str);
                 })
     };
 
