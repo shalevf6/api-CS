@@ -1,6 +1,16 @@
 app.controller('registerController', function($scope, $http, $window){
 
-
+    $scope.user = {
+        username :"",
+        password : "",
+        fname : "",
+        lname : "",
+        city : "",
+        country : "",
+        email : " ",
+        favoriteCat : [],
+        questions : [{quest: "",ans : "",quest1:"",ans1:""},]
+    }
     let request = {
         method: 'GET',
         url : 'http://localhost:3000/categories',
@@ -78,11 +88,11 @@ app.controller('registerController', function($scope, $http, $window){
                 console.log("error! info: " + err);
                 $scope.username = err
             })
+
+
     $scope.master = {};
 
-    $scope.update = function(user) {
-        $scope.master = angular.copy(user);
-    };
+
     $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
     };
@@ -90,18 +100,158 @@ app.controller('registerController', function($scope, $http, $window){
     $scope.reset();
     $scope.update = function(user) {
         $scope.master = angular.copy(user);
+        var ok =true;
+        var categories = $scope.master.favoriteCat;
+        var catTosend = Array();
         var count =0;
         console.log(count);
-        for(category in user.categories[1]) {
-            console.log(category);
-            if(category[1]!=null)
-                count++;
-        }
+        angular.forEach(categories,function (category , index , obj) {
+            if(category !=null) {
+                if (index === "0") {
+                    if (category === categories[1] || category === categories[2] || category === categories[3]) {
+                        alert("Cant choose two similar categories ");
+                        ok = false;
+                        reset();
+                    }
+                } else if (index === "1") {
+                    if (category === categories[0] || category === categories[2] || category === categories[3]) {
+                        alert("Cant choose two similar categories ");
+                        ok = false;
+                        reset();
+                    }
+                } else if (index === "2") {
+                    if (category === categories[1] || category === categories[0] || category === categories[3]) {
+                        alert("Cant choose two similar categories ");
+                        ok = false;
+                        reset();
+                    }
+                }
+                if (index === "3") {
+                    if (category === categories[1] || category === categories[2] || category === categories[0]) {
+                        alert("Cant choose two similar categories ");
+                        ok = false;
+                        reset();
+                    }
+                } else {
+                    catTosend.push(category);
+                    count++
+                }
+            }
+})
         console.log(count);
-        if(master.categories.length<2){
+        if (count < 2) {
             alert("YOU MUST CHOOSE 2 OR MORE CATEGORIES")
             reset();
+            ok = false;
         }
-        console.log(user.categories)
+        else if(ok) {
+            var catCat = {};
+            if (count === 2) {
+                let request2 = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/signUp',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    data: {
+                        "username": user.username.toString(),
+                        "password": user.password.toString(),
+                        "fName": user.fname.toString(),
+                        "lName": user.lname.toString(),
+                        "city": user.city.toString(),
+                        "country": user.country.toString(),
+                        "email": user.email.toString(),
+                        "favoriteCat": [catTosend[0].toString(), catTosend[1].toString()],
+                        "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()},{"quest": user.questions.quest1.toString(), "ans": user.questions.ans1.toString()}]
+                    }
+                };
+                $http(request2)
+                    .then(function success(response) {
+                           alert("user"+ user.username + " singed successfully!")
+                            $window.location.href = "#!/login"
+
+                        },
+                        function error(err) {
+                            console.log("error! info: " + err);
+                            alert(err.data.toString());
+                            $scope.username = err
+                        })
+            }
+            if (count === 3) {
+                let request2 = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/signUp',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    data: {
+                        "username": user.username.toString(),
+                        "password": user.password.toString(),
+                        "fname": user.fname.toString(),
+                        "lname": user.lname.toString(),
+                        "city": user.city.toString(),
+                        "country": user.country.toString(),
+                        "email": user.email.toString(),
+                        "favoriteCat": [catTosend[0].toString(), catTosend[1].toString(), catTosend[2].toString()],
+                        "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()}]
+
+                    }
+                };
+                $http(request2)
+                    .then(function success(response) {
+                            alert("user"+ user.username + " singed successfully!")
+                            $window.location.href = "#!/login"
+                        },
+                        function error(err) {
+                            console.log("error! info: " + err);
+                            alert(err);
+                            $scope.username = err
+                        })
+            }
+            if (count === 4) {
+                let request2 = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/signUp',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    data: {
+                        "username": user.username.toString(),
+                        "password": user.password.toString(),
+                        "fname": user.fname.toString(),
+                        "lname": user.lname.toString(),
+                        "city": user.city.toString(),
+                        "country": user.country.toString(),
+                        "email": user.email.toString(),
+                        "favoriteCat": [catTosend[0].toString(), catTosend[1].toString(), catTosend[2].toString(), catTosend[3].toString()],
+                        "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()}]
+                    }
+                };
+                $http(request2)
+                    .then(function success(response) {
+                            alert("user"+ user.username + " singed successfully!")
+                            $window.location.href = "#!/login"
+                        },
+                        function error(err) {
+                            console.log("error! info: " + err);
+                            alert(err);
+                            $scope.username = err
+                        })
+            }
+        }
+    };
+    $scope.submitForm = function(isValid) {
+
+        let email = $scope.user.email;
+        isValid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            .test(email);
+
+        // check to make sure the form is completely valid
+        if (isValid) {
+        }
+
     };
 });
