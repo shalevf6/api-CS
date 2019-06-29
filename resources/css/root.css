@@ -54,3 +54,8 @@ img {
     font-size:40px;
     color:white;
 }
+
+body {
+    background-image: url("../images/background.jpg");
+    background-size: 100%;
+}

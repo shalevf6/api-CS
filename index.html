@@ -46,7 +46,7 @@
     <!--    load app    -->
     <script src="app.js"></script>
 
-    <!--    load more js files   TODO : FOR SORTABLE  -->
+    <!--    load more js files  -->
     <script src="resources/sortable/ng-sortable.js"></script>
 
     <!--    load controllers    -->
@@ -90,8 +90,8 @@
                 <li class="nav-item" ng-show="rToken">
                     <a class="nav-link" href="#!/welcome">My Zone</a>
                 </li>
-                <li class="nav-item" ng-show="rToken"> <!-- TODO: add show and hide for badge -->
-                    <a class="nav-link" href="#!/userFavoritePOIs">FavouritePOI <span class="badge badge-success">3</span></a>
+                <li class="nav-item" ng-show="rToken" ng-model="favorite_count">
+                    <a class="nav-link" href="#!/userFavoritePOIs">My Favorites <span id="fav_count" class="badge badge-secondary">{{favorite_count}}</span></a>
                 </li>
                 <li class="nav-item" ng-show="rToken">
                     <a class="nav-link" href="#!/POIS">Explore NYC</a>

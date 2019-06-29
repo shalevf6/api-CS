@@ -1,10 +1,14 @@
 app
-    .controller('favoritePoisController', ['$scope','favoritePoiService', 'pois', 'header', '$http',
-        function ( $scope, favoritePoiService, pois, header, $http) {
+    .controller('favoritePoisController', ['$scope','favoritePoiService', 'mainPoiService', 'header', '$http', '$rootScope',
+        function ( $scope, favoritePoiService, mainPoiService, header, $http, $rootScope) {
 
-            $scope.intro = "undef";
+            $scope.intro_head = "undef";
+            $scope.intro_content = "undef";
+            $scope.had_favorites = false;
 
             $scope.http = $http;
+
+            $scope.rUsername = sessionStorage.getItem('username');
 
             $scope.changeFavoriteFromFavoriteController = function($event, item) {
                 favoritePoiService.changeFavorite($event,item);
@@ -25,9 +29,23 @@ app
                     .then(function (response) {
                         console.log(response.data);
                         console.log("Updated favorite POIs in the database");
+
+                        let favCount = $('#fav_count');
+                        if ($rootScope.favorite_count > 0) {
+                            favCount.removeClass('badge-success');
+                            favCount.addClass('badge-secondary');
+                        }
+                        if ($rootScope.favorite_count < 0) {
+                            favCount.removeClass('badge-danger');
+                            favCount.addClass('badge-secondary');
+                        }
+                        $rootScope.favorite_count = 0;
+
+                        $('#upload_success_modal').modal('show');
                     }, function (err) {
                         console.log(err);
                         console.log("Failed to update favorite POIs in the database");
+                        $('#upload_failure_modal').modal('show');
                     });
             };
 
@@ -44,6 +62,16 @@ app
                 return listValues;
             };
 
+            $scope.sortByCategory = function() {
+                $scope.sortableArray.sort((a,b) =>  (a.category < b.category) ? -1 : ((b.category < a.category) ? 1 : 0));
+                favoritePoiService.setFavorites($scope.getSortedElements());
+            };
+
+            $scope.sortByRank = function() {
+                $scope.sortableArray.sort((a,b) =>  (a.rank < b.rank) ? 1 : ((b.rank < a.rank) ? -1 : 0));
+                favoritePoiService.setFavorites($scope.getSortedElements());
+            };
+
             /*******************      GETTING FAVORITE POIs BY ORDER     *****************************/
 
             let tempFavorites = favoritePoiService.getFavorites();
@@ -52,7 +80,7 @@ app
                 tempPOINames.push(favorite.poi);
             });
 
-            let tempPOIs = pois.getPois(tempPOINames);
+            let tempPOIs = mainPoiService.getPois(tempPOINames);
 
             let tempSortableArray = [];
             for(let i = 0; i < tempPOIs.length; i++) {
@@ -76,8 +104,13 @@ app
 
             /*******************      DEFINING THE INTRO HEADLINE     *****************************/
 
-            if ($scope.sortableArray.length > 0)
-                $scope.intro = "Here are your favorite points of interest";
-            else
-                $scope.intro = "Looks like you don't have any favorite points of interest yet..";
+            if ($scope.sortableArray.length > 0) {
+                $scope.intro_head = "Here are your favorite points of interest!";
+                $scope.intro_content = "Feel free to drag them and change their order";
+                $scope.has_favorites = true;
+            }
+            else {
+                $scope.intro_head = "Looks like you don't have any favorite points of interest yet..";
+                $scope.intro_content = "Go ahead and add some!";
+            }
         }]);

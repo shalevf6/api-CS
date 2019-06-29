@@ -1,5 +1,5 @@
 app
-    .controller('welcomeController', function($scope, $http, $window, favoritePoiService, pois){
+    .controller('welcomeController', function($scope, $http, $window, favoritePoiService, mainPoiService){
         $scope.recommended = [];
         $scope.saved = [];
         $scope.hasFav = false;
@@ -44,7 +44,7 @@ app
                     tempPOINames.push(favorite.poi);
                 });
 
-                let tempPOIs = pois.getPois(tempPOINames);
+                let tempPOIs = mainPoiService.getPois(tempPOINames);
 
                 let secondTempLastSaved = [];
                 for(let i = 0; i < tempPOIs.length; i++) {
