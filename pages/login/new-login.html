@@ -9,13 +9,17 @@
         <!-- Icon -->
         <div class="fadeIn first">
             <img src="pages/login/images/icons/favicon.ico" class="nav-img" alt="User Icon" />
+            <br>
+            <h2 class="active" ng-show="!forgot">Sign In</h2>
+            <h2 class="active" ng-show="forgot">Restore Password</h2>
+
         </div>
 
         <!-- Login Form -->
         <form ng-show="!forgot">
-            <input type="text" id="login" ng-model="username" class="fadeIn second" name="login" placeholder="Login">
-            <input type="password" id="password" ng-model="password" class="fadeIn third" name="login" placeholder="Password">
-            <input type="submit" ng-click="login()" class="fadeIn fourth" value="Log In">
+            <input type="text" id="login" ng-model="username" class="fadeIn first" name="login" placeholder="Login">
+            <input type="password" id="password" ng-model="password" class="fadeIn second" name="login" placeholder="Password">
+            <input type="submit" ng-click="login()" class="fadeIn third" value="Log In">
         </form>
 
         <form ng-show="forgot">
