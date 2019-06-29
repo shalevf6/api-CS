@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $http, $window, $rootScope, header, pois, favoritePoiService){
+app.controller('loginController', function($scope, $http, $window, $rootScope, header, mainPoiService, favoritePoiService){
     $scope.forgot = false;
     $scope.showAnswer = false;
     $scope.forgotUsername = "";
@@ -18,28 +18,28 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, h
                 "Access-Control-Allow-Origin" : "*"
             },
             data : cred
-            
+
         };
         // ctrl.password = request.headers
         $http(request)
-        .then(function success(response){
-            console.log('logged in!');
-            console.log('token: ' + response);
+            .then(function success(response){
+                    console.log('logged in!');
+                    console.log('token: ' + response);
 
-            sessionStorage.setItem('token', response.data);
-            sessionStorage.setItem('username', $scope.username);
+                    sessionStorage.setItem('token', response.data);
+                    sessionStorage.setItem('username', $scope.username);
 
-            pois.setPOIs($http);
-            favoritePoiService.initFavoritePOIs($http);
+                    mainPoiService.setPOIs($http);
+                    favoritePoiService.initFavoritePOIs($http);
 
-            $rootScope.rUsername = $scope.username;
-            $rootScope.rToken = response.data;
-            $window.location.href = "#!/welcome"
-        },
-        function error(err){
-            console.log("error! info: " + err);
-            alert(JSON.stringify(err));
-        })
+                    $rootScope.rUsername = $scope.username;
+                    $rootScope.rToken = response.data;
+                    $window.location.href = "#!/welcome"
+                },
+                function error(err){
+                    console.log("error! info: " + err);
+                    alert(JSON.stringify(err));
+                })
     };
 
 
@@ -54,7 +54,7 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, h
     $scope.getQuest = function () {
         $http({
             method: "GET",
-                url: "http://localhost:3000/questions",
+            url: "http://localhost:3000/questions",
             headers: header.header
         })
             .then(function (response) {

@@ -2,48 +2,49 @@ var app = angular.module('myApp', ['ngRoute', 'as.sortable']);
 
 // setting root variables
 app.run(function ($rootScope) {
-   $rootScope.rUsername = sessionStorage.getItem('username') || "Guest";
-   $rootScope.rToken = sessionStorage.getItem('token');
+    $rootScope.rUsername = sessionStorage.getItem('username') || "Guest";
+    $rootScope.rToken = sessionStorage.getItem('token');
+    $rootScope.favorite_count = 0;
 });
 
 //  routing configurations
 app.config(function ($routeProvider) {
-   $routeProvider
-       .when('/', {
-          templateUrl : 'pages/entrancePage.html',
-          controller : "entranceController",
-           controllerAS : "ctrl"
-       })
-       .when('/register', {
-          templateUrl : 'pages/register.html',
-          controller : 'registerController',
-          controllerAs : 'ctrl'
-       })
-       .when('/login', {
-          templateUrl : 'pages/login/new-login.html',
-          controller : 'loginController',
-          controllerAs : 'ctrl'
-       })
-       .when('/welcome', {
-           templateUrl : 'pages/welcome.html',
-           controller : 'welcomeController',
-           controllerAs : 'ctrl'
-       })
-       .when('/singlePoi/:name', {
-           templateUrl : 'pages/singlePoi.html',
-           controller : 'singlePoiController',
-           controllerAs : 'ctrl'
-       })
-       .when('/POIS', {
-           templateUrl: 'pages/pois.html',
-           controller: 'poisController',
-           controllerA: 'ctrl'
-       })
-       .when('/userFavoritePOIs', {
-           templateUrl: 'pages/favoritePois.html',
-           controller: 'favoritePoisController',
-           controllerAs: 'ctrl'
-       })
+    $routeProvider
+        .when('/', {
+            templateUrl : 'pages/entrancePage.html',
+            controller : "entranceController",
+            controllerAS : "ctrl"
+        })
+        .when('/register', {
+            templateUrl : 'pages/register.html',
+            controller : 'registerController',
+            controllerAs : 'ctrl'
+        })
+        .when('/login', {
+            templateUrl : 'pages/login/new-login.html',
+            controller : 'loginController',
+            controllerAs : 'ctrl'
+        })
+        .when('/welcome', {
+            templateUrl : 'pages/welcome.html',
+            controller : 'welcomeController',
+            controllerAs : 'ctrl'
+        })
+        .when('/singlePoi/:name', {
+            templateUrl : 'pages/singlePoi.html',
+            controller : 'singlePoiController',
+            controllerAs : 'ctrl'
+        })
+        .when('/POIS', {
+            templateUrl: 'pages/pois.html',
+            controller: 'poisController',
+            controllerA: 'ctrl'
+        })
+        .when('/userFavoritePOIs', {
+            templateUrl: 'pages/favoritePois.html',
+            controller: 'favoritePoisController',
+            controllerAs: 'ctrl'
+        })
         .otherwise({redirectTo : '/'});
 });
 
@@ -66,7 +67,7 @@ app.service('search', function () {
     }
 });
 
-app.service('pois', function(header){
+app.service('mainPoiService', function(header){
 
     let allPOIs = [];
 
@@ -99,8 +100,6 @@ app.service('pois', function(header){
     };
 });
 
-
-
 //  main controller
 app.controller('mainController', function ($scope, $http, $window, $rootScope, search, favoritePoiService) {
 
@@ -109,6 +108,17 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
         sessionStorage.removeItem('token');
         $rootScope.rUsername = "Guest";
         $rootScope.rToken = "";
+
+        let favCount = $('#fav_count');
+        if ($rootScope.favorite_count > 0) {
+            favCount.removeClass('badge-success');
+            favCount.addClass('badge-secondary');
+        }
+        if ($rootScope.favorite_count < 0) {
+            favCount.removeClass('badge-danger');
+            favCount.addClass('badge-secondary');
+        }
+        $rootScope.favorite_count = 0;
 
         console.log("inside logout");
 
@@ -140,24 +150,45 @@ app.service('favoritePoiService', function ($rootScope) {
         })
             .then(function (response) {
                 favorites = response.data;
-                console.log("Favorites successfully retrieved")
+                console.log("Favorites successfully retrieved");
                 console.log(response.data)
             }, function (err) {
-                console.log("Unable to retrieve favorites")
+                console.log("Unable to retrieve favorites");
                 console.log(err);
             });
     };
 
     this.addFavorite = function (poi) {
         favorites.push({username: $rootScope.rUsername, poi: poi.name, personalOrder: favorites.length + 1, time: new Date().toISOString()});
-        // this.favorites.push({name: poi.name, category: poi.category, picture: poi.picture, description: poi.description,
-        //     rank: poi.rank, watched: poi.watched});
+        if ($rootScope.favorite_count === -1) {
+            let favCount = $('#fav_count');
+            favCount.removeClass('badge-danger');
+            favCount.addClass('badge-secondary');
+        }
+        else if ($rootScope.favorite_count === 0) {
+            let favCount = $('#fav_count');
+            favCount.removeClass('badge-secondary');
+            favCount.addClass('badge-success');
+        }
+        $rootScope.favorite_count = $rootScope.favorite_count + 1;
     };
 
     this.removeFavorite = function (poi) {
         for (let i = 0; i < favorites.length; i++) {
             if (favorites[i].poi === poi.name) {
                 favorites.splice(i, 1);
+                if ($rootScope.favorite_count === 1) {
+                    let favCount = $('#fav_count');
+                    favCount.removeClass('badge-success');
+                    favCount.addClass('badge-secondary');
+                }
+                else if ($rootScope.favorite_count === 0) {
+                    let favCount = $('#fav_count');
+                    favCount.removeClass('badge-secondary');
+                    favCount.addClass('badge-danger');
+                }
+                $rootScope.favorite_count = $rootScope.favorite_count - 1;
+
             }
         }
     };
