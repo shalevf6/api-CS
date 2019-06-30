@@ -1,8 +1,17 @@
-<style>
+<head><style>
     #explore:hover {
         cursor: pointer;
     }
+    body {
+        background: aliceblue no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
 </style>
+</head>
+<body>
 <div class="container-fluid">
     <div class="jumbotron jumbotron-fluid rounded">
         <div class="container">
@@ -16,22 +25,24 @@
         <hr>
         <p>Based on the categories you like, we think you might want to check these places</p>
     </div>
-    <div class="row">
-        <div class="col text-center" ng-repeat="item in recommended">
-            <figure>
-                <a href="#!/singlePoi/{{item.name}}">
-                    <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-                    <p><span ng-click="expandPoi()">{{item.name}}</span></p>
-                </a>
-                <figcaption class="figure-caption text-center">
-                    {{item.category}}
-                </figcaption>
-                <figcaption class="figure-caption text-center">
-                    <i id="fav_star_recommened-{{$index}}" style="cursor: pointer" class="fa fa-star fa-lg" ng-style="{color: item.color}"
-                       ng-click="changeFavoriteFromWelcomeController($event, item)">
-                    </i>
-                </figcaption>
-            </figure>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 text-center" ng-repeat="item in recommended">
+                <figure>
+                    <a href="#!/singlePoi/{{item.name}}">
+                        <img class="img-thumbnail div-img rounded" ng-src="{{item.picture}}">
+                        <p class="mb-0 rounded"><span>{{item.name}}</span></p>
+                    </a>
+                    <figcaption class="figure-caption text-center">
+                        {{item.category}}
+                    </figcaption>
+                    <figcaption class="figure-caption text-center">
+                        <i id="fav_star_recommened-{{$index}}" style="cursor: pointer" class="fa fa-star fa-lg" ng-style="{color: item.color}"
+                           ng-click="changeFavoriteFromWelcomeController($event, item)">
+                        </i>
+                    </figcaption>
+                </figure>
+            </div>
         </div>
     </div>
 
@@ -46,22 +57,25 @@
             <a id="explore" href="#!/POIS" class="alert-link">Explore</a>
         </p>
     </div>
-    <div class="row">
-        <div class="col text-center" ng-repeat="item in saved">
-            <figure>
-                <a href="#!/singlePoi/{{item.name}}">
-                    <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-                    <p><span ng-click="expandPoi()">{{item.name}}</span></p>
-                </a>
-                <figcaption class="figure-caption text-center">
-                    {{item.category}}
-                </figcaption>
-                <figcaption class="figure-caption text-center">
-                    <i id="fav_star_favorite-{{$index}}" style="cursor: pointer" class="fa fa-star fa-lg" ng-style="{color: item.color}"
-                       ng-click="changeFavoriteFromWelcomeController($event, item)">
-                    </i>
-                </figcaption>
-            </figure>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 text-center" ng-repeat="item in saved">
+                <figure>
+                    <a href="#!/singlePoi/{{item.name}}">
+                        <img class="img-thumbnail div-img rounded" height="400px" width="400px" ng-src="{{item.picture}}">
+                        <p class="mb-0"><span>{{item.name}}</span></p>
+                    </a>
+                    <figcaption class="figure-caption text-center">
+                        {{item.category}}
+                    </figcaption>
+                    <figcaption class="figure-caption text-center">
+                        <i id="fav_star_favorite-{{$index}}" style="cursor: pointer" class="fa fa-star fa-lg" ng-style="{color: item.color}"
+                           ng-click="changeFavoriteFromWelcomeController($event, item)">
+                        </i>
+                    </figcaption>
+                </figure>
+            </div>
         </div>
     </div>
 </div>
+</body>
