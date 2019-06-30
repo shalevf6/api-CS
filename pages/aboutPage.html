@@ -2,8 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <style>
+        /* ANIMATIONS */
+
+        /* Simple CSS3 Fade-in-down Animation */
+        .fadeInDown {
+            -webkit-animation-name: fadeInDown;
+            animation-name: fadeInDown;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        /* Simple CSS3 Fade-in Animation */
+        @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
         body {
             background: url(https://cdn.pixabay.com/photo/2014/07/01/12/35/taxi-cab-381233_1280.jpg) no-repeat center center fixed;
             -webkit-background-size: cover;
@@ -11,9 +53,87 @@
             -o-background-size: cover;
             background-size: cover;
         }
+
+        #about_text {
+            font-family: "Bookman Old Style",serif;
+        }
     </style>
 </head>
 <body>
-
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div id="about_text" class="w-90 shadow p-3 mb-5 rounded text-center fadeInDown" style="cursor:default; background-color: rgba(255, 255, 255, 0.9);">
+            <h2 class="font-weight-bold underlineHover">The Recap On The City's History</h2>
+            <div class="text-left">
+                <br>
+                New York City, officially the City of New York, historically New Amsterdam. City and port located at the mouth of the Hudson River, southeastern New York state, northeastern U.S.
+                <br>
+                <br>
+                It is the largest and most influential American metropolis, encompassing Manhattan and Staten islands, the western sections of Long Island, and a small portion of the New York state mainland to the north of Manhattan.
+                <br>
+                <br>
+                New York City is in reality a collection of many neighbourhoods scattered among the city’s five boroughs—Manhattan, Brooklyn, the Bronx, Queens, and Staten Island—each exhibiting its own lifestyle. Moving from one city neighbourhood to the next may be like passing from one country to another.
+                <br>
+                <br>
+                It is the most populous and the most international city in the country. Its urban area extends into adjoining parts of New York, New Jersey, and Connecticut. Located where the Hudson and East rivers empty into one of the world’s premier harbours, New York is both the gateway to the North American continent and its preferred exit to the oceans of the globe.
+            </div>
+            <hr>
+            <h2 class="font-weight-bold underlineHover">Character Of The City</h2>
+            <div class="text-left">
+                <br>
+                New York is the most ethnically diverse, religiously varied, commercially driven, famously congested, and, in the eyes of many, the most attractive urban centre in the country.
+                <br>
+                <br>
+                No other city has contributed more images to the collective consciousness of Americans: Wall Street means finance, Broadway is synonymous with theatre, Fifth Avenue is automatically paired with shopping, Madison Avenue means the advertising industry, Greenwich Village connotes bohemian lifestyles, Seventh Avenue signifies fashion, Tammany Hall defines machine politics, and Harlem evokes images of the Jazz Age, African American aspirations, and slums. The word tenement brings to mind both the miseries of urban life and the upward mobility of striving immigrant masses.
+                <br>
+                <br>
+                New York has more Jews than Tel Aviv, more Irish than Dublin, more Italians than Naples, and more Puerto Ricans than San Juan. Its symbol is the Statue of Liberty, but the metropolis is itself an icon.
+            </div>
+            <hr>
+            <div class="text-left">
+                Brash and electrifying, NYC marches to its own propulsive beat. Yellow and green cabs stream down Fifth Avenue, showtime performers pull off astonishing acrobatics on subway car poles, steam pours from gratings in the street, horse-drawn carriages clatter round Central Park and sirens wail every few minutes.
+                Once you’ve experienced NYC’s energy, everywhere else seems slow – a ‘New York minute’ really does fly by.
+            </div>
+            <br><br>
+            <h3>
+                So are you ready to wake up in a city that never sleeps?
+            </h3>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ul class="carousel-indicators">
+                    <li id = "slide-1" data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li id = "slide-2" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li id = "slide-3" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li id = "slide-4" data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li id = "slide-5" data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    <li id = "slide-6" data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+                    <li id = "slide-7" data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+                </ul>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://cdn.pixabay.com/photo/2016/09/16/15/56/manhattan-1674404_1280.jpg" height="600px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cdn.pixabay.com/photo/2016/02/19/11/50/statue-of-liberty-1210001_1280.jpg" height="600px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cdn.pixabay.com/photo/2019/05/14/19/26/park-4203275_1280.jpg" height="600px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/22/19/17/architecture-1850129_1280.jpg" height="600px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cdn.pixabay.com/photo/2015/03/11/12/31/new-york-668616_1280.jpg" height="600px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cdn.pixabay.com/photo/2015/09/28/21/33/new-york-city-962794_1280.jpg" height="600px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/29/06/11/architecture-1867726_1280.jpg" height="600px" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
