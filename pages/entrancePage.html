@@ -110,6 +110,14 @@
             transform: scale(1.1);
         }
 
+        body {
+            background: url(https://cdn.pixabay.com/photo/2017/10/10/04/55/times-square-2835995_1280.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
     </style>
 
 </head>
@@ -117,10 +125,10 @@
 <br>
 <div class="container">
     <div class="row justify-content-md-center">
-        <div class="w-75 shadow p-3 mb-5 bg-white rounded text-center fadeInDown">
+        <div class="w-75 shadow p-3 mb-5 rounded text-center fadeInDown" style="cursor:default; background-color: rgba(255, 255, 255, 0.9);">
             <h2 class="font-weight-bold underlineHover">Welcome to New York City</h2>
             <br>
-            The Big Apple, the place that you can be anybody and do everything!
+            The <b>Big Apple</b>, the place that you can be anybody and do everything!
             <br><br>
             Enjoy it, enjoy our site, enjoy life
         </div>
@@ -131,8 +139,8 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-4" id="colSearch" ng-repeat="item in randPois">
-            <figure  class="search-img" id="{{item.name}}" ng-click="poiClicked($event)">
-                <img class="img-thumbnail rounded" height="400px" width="400px" ng-src="{{item.picture}}" alt="G">
+            <figure  class="search-img rounded bg-white shadow" id="{{item.name}}" ng-click="poiClicked($event)">
+                <img class="img-thumbnail rounded bg-white shadow" height="400px" width="400px" ng-src="{{item.picture}}" alt="G">
                 <figcaption class="figure-caption text-center">{{item.name}}</figcaption>
                 <figcaption class="figure-caption text-center">{{item.category}}</figcaption>
             </figure>

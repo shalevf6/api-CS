@@ -1,3 +1,18 @@
+<header>
+    <style>
+        body {
+            background: url(https://cdn.pixabay.com/photo/2016/11/23/15/32/architecture-1853552_1280.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .favorite_row {
+            background-color: rgba(240, 248, 255, 0.95);
+        }
+    </style>
+</header>
+<body>
 <div class="container-fluid">
     <div class="alert alert-info align-items-center justify-content-md-center mx-auto d-block w-75" role="alert">
         <h4 class="alert-heading" ng-model="intro_head">{{intro_head}}</h4>
@@ -6,17 +21,17 @@
     </div>
     <div ng_show="has_favorites" class="row align-items-center justify-content-md-center p-1 mb-2">
         <div class="col-4 justify-content-md-center align-items-center text-center">
-            <button ng-click="sortByCategory()" type="button" class="btn btn-outline-secondary btn-block w-75 justify-content-center mx-auto d-block">Sort By Category</button>
+            <button ng-click="sortByCategory()" type="button" class="btn btn-info btn-block w-75 justify-content-center mx-auto d-block border border-secondary">Sort By Category</button>
         </div>
         <div class="col-4 justify-content-md-center align-self-center text-center">
-            <button ng-click="sortByRank()" type="button" class="btn btn-outline-secondary btn-block w-75 justify-content-center mx-auto d-block">Sort By Rank</button>
+            <button ng-click="sortByRank()" type="button" class="btn btn-info btn-block w-75 justify-content-center mx-auto d-block border border-secondary">Sort By Rank</button>
         </div>
     </div>
     <div class="row justify-content-center">
         <ul class="w-75" id="sortableArray" data-as-sortable="dragControlListeners" data-ng-model="sortableArray">
             <li id="sortableItem-{{$index}}" ng-repeat="item in sortableArray" data-as-sortable-item>
                 <div data-as-sortable-item-handle>
-                    <div class="row align-items-center justify-content-md-center alert-success text-black mb-1 rounded">
+                    <div class="row align-items-center justify-content-md-center favorite_row text-black mb-1 rounded">
                         <div class="col-1" style="font-size: 40px">
                             &#9776;
                         </div>
@@ -60,7 +75,7 @@
         </ul>
     </div>
     <div ng_show="has_favorites" class="row justify-content-md-center">
-        <button ng-click="uploadToServer()" type="button" class="btn btn-outline-secondary btn-block w-50 align-self-center p-1">Save Favorites</button>
+        <button ng-click="uploadToServer()" type="button" class="btn btn-info btn-block w-50 align-self-center mb-3 border border-secondary">Save Favorites</button>
     </div>
 </div>
 
@@ -103,3 +118,4 @@
         </div>
     </div>
 </div>
+</body>

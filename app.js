@@ -45,6 +45,11 @@ app.config(function ($routeProvider) {
             controller: 'favoritePoisController',
             controllerAs: 'ctrl'
         })
+        .when('/about', {
+            templateUrl: 'pages/aboutPage.html',
+            controller: 'aboutController',
+            controllerAs: 'ctrl'
+        })
         .otherwise({redirectTo : '/'});
 });
 
@@ -78,7 +83,7 @@ app.service('mainPoiService', function(header){
     this.setPOIs = function(http) {
         return http({
             method: "GET",
-            url: "http://localhost:3000/poi/",
+            url: "http://localhost:3000/poi",
             headers: header.header
         });
             // .then(function (res) {
