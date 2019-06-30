@@ -71,18 +71,22 @@ app.service('mainPoiService', function(header){
 
     let allPOIs = [];
 
+    this.setPoisArray = function (allPois){
+        allPOIs = allPois;
+    };
+
     this.setPOIs = function(http) {
-        http({
+        return http({
             method: "GET",
             url: "http://localhost:3000/poi/",
             headers: header.header
-        })
-            .then(function (res) {
-                allPOIs = res.data;
-                console.log(res.data)
-            }, function (err) {
-                console.log(err);
-            });
+        });
+            // .then(function (res) {
+            //     allPOIs = res.data;
+            //     console.log(res.data)
+            // }, function (err) {
+            //     console.log(err);
+            // });
     };
 
     this.getPois = function(names) {
@@ -143,19 +147,19 @@ app.service('favoritePoiService', function ($rootScope) {
     let favorites = [];
 
     this.initFavoritePOIs = function(http) {
-        http({
+        return http({
             method : "GET",
             url : 'http://localhost:3000/private/favoritePoi',
             headers: {'x-auth-token': sessionStorage.getItem('token')}
-        })
-            .then(function (response) {
-                favorites = response.data;
-                console.log("Favorites successfully retrieved");
-                console.log(response.data)
-            }, function (err) {
-                console.log("Unable to retrieve favorites");
-                console.log(err);
-            });
+        });
+            // .then(function (response) {
+            //     favorites = response.data;
+            //     console.log("Favorites successfully retrieved");
+            //     console.log(response.data)
+            // }, function (err) {
+            //     console.log("Unable to retrieve favorites");
+            //     console.log(err);
+            // });
     };
 
     this.addFavorite = function (poi) {

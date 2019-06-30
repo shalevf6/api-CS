@@ -1,4 +1,4 @@
-app.controller('loginController', function($scope, $http, $window, $rootScope, header, mainPoiService, favoritePoiService){
+app.controller('loginController', function($scope, $http, $window, $rootScope, $q,  header, mainPoiService, favoritePoiService){
     $scope.forgot = false;
     $scope.showAnswer = false;
     $scope.forgotUsername = "";
@@ -29,12 +29,22 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, h
                     sessionStorage.setItem('token', response.data);
                     sessionStorage.setItem('username', $scope.username);
 
-                    mainPoiService.setPOIs($http);
-                    favoritePoiService.initFavoritePOIs($http);
+                    let mainPromise = mainPoiService.setPOIs($http),
+                    favPromise = favoritePoiService.initFavoritePOIs($http);
 
-                    $rootScope.rUsername = $scope.username;
-                    $rootScope.rToken = response.data;
-                    $window.location.href = "#!/welcome"
+                    $q.all([mainPromise, favPromise])
+                        .then(responsesArr => {
+                            mainPoiService.setPoisArray(responsesArr[0].data);
+                            favoritePoiService.setFavorites(responsesArr[1].data);
+
+                            $rootScope.rUsername = $scope.username;
+                            $rootScope.rToken = response.data;
+                            $window.location.href = "#!/welcome"
+                        }, err => {
+                            alert("Some server error occured.\nPlease try again");
+                            console.log(err.toString());
+                        });
+
                 },
                 function error(err){
                     console.log("error! info: " + err);
