@@ -29,22 +29,9 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, $
                     sessionStorage.setItem('token', response.data);
                     sessionStorage.setItem('username', $scope.username);
 
-                    let mainPromise = mainPoiService.setPOIs($http),
-                    favPromise = favoritePoiService.initFavoritePOIs($http);
-
-                    $q.all([mainPromise, favPromise])
-                        .then(responsesArr => {
-                            mainPoiService.setPoisArray(responsesArr[0].data);
-                            favoritePoiService.setFavorites(responsesArr[1].data);
-
-                            $rootScope.rUsername = $scope.username;
-                            $rootScope.rToken = response.data;
-                            $window.location.href = "#!/welcome"
-                        }, err => {
-                            alert("Some server error occured.\nPlease try again");
-                            console.log(err.toString());
-                        });
-
+                    $rootScope.rUsername = $scope.username;
+                    $rootScope.rToken = response.data;
+                    $window.location.href = "#!/welcome";
                 },
                 function error(err){
                     console.log("error! info: " + err);
@@ -54,7 +41,7 @@ app.controller('loginController', function($scope, $http, $window, $rootScope, $
                             str = "Username or Password are incorrect";
                             break;
                         default:
-                            str = "Some error occurred, please try again later";
+                            str = "Some error occurred, please try again";
                     }
                     alert(str);
                 })

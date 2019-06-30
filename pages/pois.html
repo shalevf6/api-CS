@@ -40,8 +40,8 @@
         <div class="col-4 text-center" id="colSearch" ng-repeat="item in value">
             <figure  class="search-img" id="{{item.name}}" ng-click="poiClicked($event)">
                 <img class="img-thumbnail rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-                <figcaption class="figure-caption text-center">{{item.name}}</figcaption>
-                <figcaption class="figure-caption text-center">{{item.category}}</figcaption>
+                <figcaption class="figure-caption text-center font-weight-bold">{{item.name}}</figcaption>
+                <figcaption class="figure-caption text-center pb-1">{{item.category}}</figcaption>
             </figure>
         </div>
     </div>

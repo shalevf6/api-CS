@@ -75,9 +75,11 @@ app.service('search', function () {
 app.service('mainPoiService', function(header){
 
     let allPOIs = [];
+    let setted = false;
 
     this.setPoisArray = function (allPois){
         allPOIs = allPois;
+        setted = true;
     };
 
     this.setPOIs = function(http) {
@@ -150,6 +152,7 @@ app.controller('mainController', function ($scope, $http, $window, $rootScope, s
 app.service('favoritePoiService', function ($rootScope) {
 
     let favorites = [];
+    let setted = false;
 
     this.initFavoritePOIs = function(http) {
         return http({
@@ -235,6 +238,7 @@ app.service('favoritePoiService', function ($rootScope) {
 
     this.setFavorites = function(newFavorites) {
         favorites = newFavorites;
+        setted = true;
     };
 
     this.getFavorites = function() {
@@ -243,5 +247,10 @@ app.service('favoritePoiService', function ($rootScope) {
 
     this.resetFavorites = function() {
         favorites = [];
+        setted = false;
     };
+
+    this.getSetted = function(){
+        return setted;
+    }
 });
