@@ -1,5 +1,5 @@
 app
-    .controller('poisController', function ($scope, $http, $window, $rootScope, header, search) {
+    .controller('poisController', function ($scope, $http, $window, $rootScope, header, search, favoritePoiService) {
 
         $scope.results = {};
         $scope.size = -1;
@@ -19,7 +19,15 @@ app
         })
             .then(function (res) {
                console.log(res);
-               $scope.allPoi = res.data.sort((a,b) => (a.rank<b.rank) ? 1 : (a.rank>b.rank ? -1 : 0));
+               let firstTempPOIArr = res.data.sort((a,b) => (a.rank<b.rank) ? 1 : (a.rank>b.rank ? -1 : 0));
+               let tempPOIArr = [];
+               for (let i = 0; i < firstTempPOIArr.length; i++) {
+                   let color = favoritePoiService.isFavorite(firstTempPOIArr[i]);
+                   tempPOIArr.push({name: firstTempPOIArr[i].name, category: firstTempPOIArr[i].category, picture: firstTempPOIArr[i].picture,
+                       description: firstTempPOIArr[i].description, rank: firstTempPOIArr[i].rank, watched: firstTempPOIArr[i].watched,
+                       color: color});
+               }
+               $scope.allPoi = tempPOIArr;
                $http({
                     method: "GET",
                     url: "http://localhost:3000/categories",
@@ -73,5 +81,9 @@ app
         $scope.poiClicked = function (event) {
             let name = event.currentTarget.id;
             $window.location.href = "#!/singlePoi/" + name;
-        }
+        };
+
+        $scope.changeFavoriteFromPoisController = function($event, item) {
+            favoritePoiService.changeFavorite($event,item);
+        };
     });

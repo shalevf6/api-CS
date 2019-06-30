@@ -111,11 +111,9 @@ app
                 });
         };
 
-
         $scope.changeFavoriteFromSinglePoiController = function($event, item) {
             favoritePoiService.changeFavorite($event,item);
         };
-
 
         $scope.initMap23 = function () {
             const mymap = L.map('mapid').setView([locations[name].x, locations[name].y], 16);
@@ -127,5 +125,9 @@ app
             }).addTo(mymap);
             const marker = L.marker([locations[name].x, locations[name].y]).addTo(mymap);
             marker.bindPopup("<div style='text-align: center'><b>I'm here!</b><br>" + name + "</div>").openPopup();
+        };
+
+        $scope.changeFavoriteFromSinglePoiController = function($event, item) {
+            favoritePoiService.changeFavorite($event,item);
         };
     });
