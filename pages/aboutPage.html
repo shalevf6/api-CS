@@ -62,6 +62,17 @@
             border: 1px solid;
             color: gray;
         }
+
+        .btn-circle {
+            width: 40px;
+            height: 40px;
+            padding: 6px 0px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.42857;
+        }
+
     </style>
 </head>
 <body>
@@ -103,7 +114,7 @@
             <h3>
                 So are you ready to wake up in a city that never sleeps?
             </h3>
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide" data-interval="5000" data-ride="carousel">
                 <ul class="carousel-indicators">
                     <li id = "slide-1" data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li id = "slide-2" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -136,6 +147,19 @@
                         <img src="https://cdn.pixabay.com/photo/2016/11/29/06/11/architecture-1867726_1280.jpg" height="600px" class="d-block w-100" alt="...">
                     </div>
                 </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control-prev" style="cursor: pointer"
+                   data-target="#carouselExampleIndicators" data-slide="prev">
+                    <span class="d-flex justify-content-center align-items-center bg-secondary btn-circle">
+                        <span class="carousel-control-prev-icon"></span>
+                    </span>
+                </a>
+                <a class="carousel-control-next" style="cursor: pointer"
+                   data-target="#carouselExampleIndicators" data-slide="next">
+                    <span class="d-flex justify-content-center align-items-center bg-secondary btn-circle">
+                        <span class="carousel-control-next-icon"></span>
+                    </span>
+                </a>
             </div>
         </div>
     </div>

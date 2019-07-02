@@ -58,7 +58,7 @@ app
 
             $scope.allPoi.forEach(item => {
                 let a = item.name, b = $scope.selection.toLowerCase(); //$('#selection option:selected').text().toString().toLowerCase()
-                let c = $scope.searchVal;
+                let c = $scope.searchVal.toLowerCase();
                 if ((item.category === $('#selection').val()|| b === "all")
                     && a.toLowerCase().includes(c)
                 ){
