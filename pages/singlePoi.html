@@ -34,6 +34,10 @@
         .maps {
             height: 100%;
         }
+
+        h6 {
+            font-weight: bolder;
+        }
     </style>
 </head>
 <body>
@@ -51,25 +55,31 @@
 
                 <div class="row">
                     <div class="col">
+                        <h6>Category: </h6>
                         <p class="card-text">
-                            <span><h6>Category: </h6> {{poi.category}}</span>
+                            {{poi.category}}
                         </p>
+                        <h6>Description: </h6>
+                        <p class="card-text text-justify">
+                            {{poi.description}}
+                        </p>
+                        <h6>Rank: </h6>
                         <p class="card-text">
-                            <span><h6>Description: </h6> {{poi.description}}</span>
+                            {{(poi.rank * 20) | number:0}}%
                         </p>
+                        <h6>Watched By: </h6>
                         <p class="card-text">
-                            <span><h6>Rank: </h6> {{(poi.rank * 20) | number:0}}%</span>
+                            Over {{poi.watched + 1}} people
                         </p>
-                        <p class="card-text">
-                            <span><h6>Watched By: </h6>Over {{poi.watched + 1}} people</span>
-                        </p>
-                        <p ng-show="loggedIn">
-                        <span><h6>Add / Remove From Favorites: </h6>
-                        <i id="fav_star_favorite_single_poi" style="cursor: pointer" class="fa fa-star fa-lg" ng-style="{color: poi.color}"
-                           ng-click="changeFavoriteFromSinglePoiController($event, poi)">
-                        </i>
-                        </span>
-                        </p>
+                        <div ng-show="loggedIn">
+                            <h6>Add / Remove From Favorites: </h6>
+                            <p >
+                                <i id="fav_star_favorite_single_poi" style="cursor: pointer" class="fa fa-star fa-lg" ng-style="{color: poi.color}"
+                                   ng-click="changeFavoriteFromSinglePoiController($event, poi)">
+                                </i>
+                            </p>
+                        </div>
+
                     </div>
 
                     <div class="col">
@@ -84,7 +94,7 @@
                     <h5 class="mb-0 font-weight-italic font-italic"><u>Latest Reviews</u></h5>
                 </div>
                 <div class="card-body">
-                    <blockquote class="blockquote border border-info rounded" style="padding: 4px;" ng-repeat="item in reviews">
+                    <blockquote class="blockquote border border-info rounded p-2" style="padding: 4px;" ng-repeat="item in reviews">
                         <p><span class="font-italic">Rank:</span> {{item.rank}}</p>
                         <p>{{item.review}}</p>
                         <footer class="blockquote-footer">Review by <cite title="Source Title"><u>{{item.username}}</u></cite> ,  {{item.time}}</footer>

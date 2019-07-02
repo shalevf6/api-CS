@@ -185,13 +185,13 @@ app.controller('registerController', function($scope, $http, $window){
                     data: {
                         "username": user.username.toString(),
                         "password": user.password.toString(),
-                        "fname": user.fname.toString(),
-                        "lname": user.lname.toString(),
+                        "fName": user.fname.toString(),
+                        "lName": user.lname.toString(),
                         "city": user.city.toString(),
                         "country": user.country.toString(),
                         "email": user.email.toString(),
                         "favoriteCat": [catTosend[0].toString(), catTosend[1].toString(), catTosend[2].toString()],
-                        "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()}]
+                        "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()},{"quest": user.questions.quest1.toString(), "ans": user.questions.ans1.toString()}]
 
                     }
                 };
@@ -222,7 +222,7 @@ app.controller('registerController', function($scope, $http, $window){
                         "country": user.country.toString(),
                         "email": user.email.toString(),
                         "favoriteCat": [catTosend[0].toString(), catTosend[1].toString(), catTosend[2].toString(), catTosend[3].toString()],
-                        "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()}]
+                        "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()},{"quest": user.questions.quest1.toString(), "ans": user.questions.ans1.toString()}]
                     }
                 };
                 $http(request2)
@@ -238,6 +238,8 @@ app.controller('registerController', function($scope, $http, $window){
         }
     };
     $scope.submitForm = function(isValid, event) {
+
+        $('#tooltipWrapper').tooltip('hide');
 
         let email = $scope.user.email;
         isValid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -264,5 +266,11 @@ app.controller('registerController', function($scope, $http, $window){
 
     $scope.resetForm = function () {
         $('#regForm').trigger('reset');
-    }
+    };
+
+    // $(document).ready(function() {
+    //     $('#regSubmit').bind('DOMSubtreeModified', function(e) {
+    //         alert('class changed');
+    //     });
+    // });
 });

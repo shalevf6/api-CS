@@ -331,8 +331,8 @@
             </div>
             <div style="text-align: center;">
                 <div style="text-align: center;">
-                    <div class="d-inline-block p-2" tabindex="0" data-toggle="tooltip" title="All fields are required">
-                        <button type="submit" class="btn mb-1" ng-class="{'btn-primary':!registrationForm.$invalid, 'btn-danger':registrationForm.$invalid}"
+                    <div id="tooltipWrapper" class="d-inline-block p-2" tabindex="0" data-toggle="tooltip" title="All fields are required">
+                        <button  type="submit" class="btn mb-1" ng-class="{'btn-primary':!registrationForm.$invalid, 'btn-danger':registrationForm.$invalid}"
                                 ng-disabled="registrationForm.$invalid">Register</button>
                     </div>
                     <br>
