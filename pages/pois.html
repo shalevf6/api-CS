@@ -38,21 +38,16 @@
 <div class="container-fluid">
     <div class="row  mb-4" ng-repeat="(key, value) in results">
         <div class="col-4 text-center" id="colSearch" ng-repeat="item in value">
-            <figure  class="search-img" id="{{item.name}}">
-                <a href="#!/singlePoi/{{item.name}}">
-                    <figure class="mb-0">
-                        <img class="img-thumbnail rounded" height="400px" width="400px" ng-src="{{item.picture}}">
-                        <figcaption class="figure-caption text-center">{{item.name}}</figcaption>
-                        <figcaption class="figure-caption text-center">{{item.category}}</figcaption>
-                    </figure>
-                </a>
-                <figcaption class="figure-caption text-center">
-                    <i id="fav_star_explore-{{$parent.$index}}-{{$index}}" style="cursor: pointer" class="fa fa-star fa-lg" ng-style="{color: item.color}"
-                       ng-click="changeFavoriteFromPoisController($event, item)">
-                    </i>
-                </figcaption>
-            </figure>
-
+            <div class="search-img pb-2">
+                <figure  class="mb-1" id="{{item.name}}" ng-click="poiClicked($event)">
+                    <img class="img-thumbnail rounded" height="100px" width="400px" ng-src="{{item.picture}}">
+                    <figcaption class="figure-caption text-center font-weight-bold">{{item.name}}</figcaption>
+                    <figcaption class="figure-caption text-center mb-1">{{item.category}}</figcaption>
+                </figure>
+                <i id="fav_star_explore-{{$parent.$index}}-{{$index}}" style="cursor: pointer" class="fa fa-star fa-lg pb-1" ng-style="{color: item.color}"
+                   ng-click="changeFavoriteFromPoisController($event, item)">
+                </i>
+            </div>
         </div>
     </div>
 
