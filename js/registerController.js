@@ -109,23 +109,23 @@ app.controller('registerController', function($scope, $http, $window){
         angular.forEach(categories,function (category , index , obj) {
             if(category !=null) {
                 if (index === "0") {
-                    if (category === categories[1] || category === categories[2] || category === categories[3]) {
+                    if (category === categories[1] && ok || category === categories[2] && ok || category === categories[3] && ok) {
                         alert("Cant choose two similar categories ");
                         ok = false;
                     }
                 } else if (index === "1") {
-                    if (category === categories[0] || category === categories[2] || category === categories[3]) {
+                    if (category === categories[0] && ok || category === categories[2] && ok || category === categories[3] && ok) {
                         alert("Cant choose two similar categories ");
                         ok = false;
                     }
                 } else if (index === "2") {
-                    if (category === categories[1] || category === categories[0] || category === categories[3]) {
+                    if (category === categories[1] && ok || category === categories[0] && ok || category === categories[3] && ok ) {
                         alert("Cant choose two similar categories ");
                         ok = false;
                     }
                 }
                 else if (index === "3") {
-                    if (category === categories[1] || category === categories[2] || category === categories[0]) {
+                    if (category === categories[1] && ok || category === categories[2] && ok || category === categories[0] && ok ) {
                         alert("Cant choose two similar categories ");
                         ok = false;
                     }
@@ -137,7 +137,7 @@ app.controller('registerController', function($scope, $http, $window){
             }
         });
         console.log(count);
-        if (count < 2) {
+        if (count < 2 && ok ) {
             alert("YOU MUST CHOOSE 2 OR MORE CATEGORIES");
             ok = false;
         }
@@ -172,6 +172,7 @@ app.controller('registerController', function($scope, $http, $window){
                         function error(err) {
                             console.log("error! info: " + err);
                             alert(err.data.toString());
+                            $window.location.href = "#!/register"
                         })
             }
             if (count === 3) {
@@ -202,7 +203,8 @@ app.controller('registerController', function($scope, $http, $window){
                         },
                         function error(err) {
                             console.log("error! info: " + err);
-                            alert(err);
+                            alert(err.data.toString());
+                            $window.location.href = "#!/register"
                         })
             }
             if (count === 4) {
@@ -216,13 +218,14 @@ app.controller('registerController', function($scope, $http, $window){
                     data: {
                         "username": user.username.toString(),
                         "password": user.password.toString(),
-                        "fname": user.fname.toString(),
-                        "lname": user.lname.toString(),
+                        "fName": user.fname.toString(),
+                        "lName": user.lname.toString(),
                         "city": user.city.toString(),
                         "country": user.country.toString(),
                         "email": user.email.toString(),
                         "favoriteCat": [catTosend[0].toString(), catTosend[1].toString(), catTosend[2].toString(), catTosend[3].toString()],
                         "questions": [{"quest": user.questions.quest.toString(), "ans": user.questions.ans.toString()},{"quest": user.questions.quest1.toString(), "ans": user.questions.ans1.toString()}]
+
                     }
                 };
                 $http(request2)
@@ -232,7 +235,8 @@ app.controller('registerController', function($scope, $http, $window){
                         },
                         function error(err) {
                             console.log("error! info: " + err);
-                            alert(err);
+                            alert(err.data.toString());
+                            $window.location.href = "#!/register"
                         })
             }
         }
@@ -268,9 +272,4 @@ app.controller('registerController', function($scope, $http, $window){
         $('#regForm').trigger('reset');
     };
 
-    // $(document).ready(function() {
-    //     $('#regSubmit').bind('DOMSubtreeModified', function(e) {
-    //         alert('class changed');
-    //     });
-    // });
 });
